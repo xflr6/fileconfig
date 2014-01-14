@@ -1,7 +1,7 @@
 Fileconfig
 ==========
 
-|PyPI version| |License| |Download|
+|PyPI version| |License| |Downloads|
 
 Fileconfig turns config file sections into Python objects. Create
 a class referring to an INI file specifying the arguments for the
