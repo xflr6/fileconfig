@@ -1,7 +1,7 @@
 Fileconfig
 ==========
 
-|PyPI version| |License|
+|PyPI version| |License| |Download|
 
 Fileconfig turns config file sections into Python objects. Create
 a class referring to an INI file specifying the arguments for the
@@ -234,3 +234,6 @@ Fileconfig is distributed under the `MIT license
 .. |License| image:: https://pypip.in/license/fileconfig/badge.png
     :target: https://pypi.python.org/pypi/fileconfig
     :alt: License
+.. |Downloads| image:: https://pypip.in/d/fileconfig/badge.png
+    :target: https://pypi.python.org/pypi/fileconfig
+    :alt: Downloads
