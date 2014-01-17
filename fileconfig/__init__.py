@@ -3,12 +3,11 @@
 """Parse config file and return class instances for each section."""
 
 __title__ = 'fileconfig'
-__version__ = '0.2'
+__version__ = '0.3-dev'
 __author__ = 'Sebastian Bank <sebastian.bank@uni-leipzig.de>'
 __license__ = 'MIT, see LICENSE'
 __copyright__ = 'Copyright (c) 2014 Sebastian Bank'
 
-from bases import Config
-from stack import Stack
+from bases import Config, Stacked
 
-__all__ = ['Config', 'Stack']
+__all__ = ['Config', 'Stacked']

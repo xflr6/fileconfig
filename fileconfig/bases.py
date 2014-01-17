@@ -2,7 +2,7 @@
 
 import meta
 
-__all__ = ['Config']
+__all__ = ['Config', 'Stacked']
 
 
 class Config(object):
@@ -26,3 +26,15 @@ class Config(object):
         if getattr(self, 'key', None) is None:
             return self.aliases
         return [self.key] + self.aliases
+
+
+class Stacked(Config):
+
+    __metaclass__ = meta.StackedMeta
+
+    def __repr__(self):
+        if getattr(self, 'key', None) is None:
+            return '<%s.%s[%r] object at %#x>' % (self.__module__,
+                self.__class__.__name__, self.__class__.filename, id(self))
+        return '%s.%s[%r](%r)' % (self.__module__, self.__class__.__name__,
+            self.__class__.filename, self.key)

@@ -1,9 +1,14 @@
 Fileconfig Changelog
 ====================
 
+Version 0.3
+-----------
+
+Replaced Stack by refactored Stacked config.
+
 
 Version 0.2
--------------
+-----------
 
 Added default __init__ and __str__ methods.
 

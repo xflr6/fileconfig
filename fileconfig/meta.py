@@ -3,6 +3,7 @@
 import os
 import ConfigParser
 
+import stack
 import tools
 
 __all__ = ['ConfigMeta']
@@ -86,3 +87,47 @@ class ConfigMeta(type):
     def pprint_all(self):
         for c in self:
             print '%s\n' % c
+
+
+class StackedMeta(ConfigMeta):
+
+    _stack = None
+
+    def __init__(self, name, bases, dct):
+        super(StackedMeta, self).__init__(name, bases, dct)
+        if self.filename is not None:
+            self._stack = stack.ConfigStack(self)
+
+    def add(self, filename, position=0):
+        if not os.path.isabs(filename):
+            filename = os.path.join(tools.caller_path(), filename)
+
+        self._stack.insert(position, filename)
+
+    def __getitem__(self, filename):
+        return self._stack[filename]
+
+    def __call__(self, key=SECTION):
+        if isinstance(key, self):
+            return key
+
+        for cls in self._stack:
+            try:
+                return super(StackedMeta, cls).__call__(key)
+            except KeyError:
+                pass
+        else:
+            raise KeyError(key)
+
+    def __iter__(self):
+        seen = set()
+        for cls in self._stack:
+            for inst in super(StackedMeta, cls).__iter__():
+                if inst.key not in seen:
+                    yield inst
+                    seen.add(inst.key)
+
+    def __repr__(self):
+        if self._stack is None:
+            return super(StackedMeta, self).__repr__()
+        return '<class %s.%s[%r]>' % (self.__module__, self.__name__, self.filename)

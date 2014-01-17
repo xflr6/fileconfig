@@ -18,8 +18,8 @@ def class_path(cls):
     return path
 
 
-def caller_path(steps=2):
-    caller = inspect.getouterframes(inspect.currentframe())[steps]
+def caller_path(steps=1):
+    caller = inspect.getouterframes(inspect.currentframe())[steps + 1]
     frame, filename, line_number, function_name,lines, index = caller
 
     path = os.path.dirname(filename)
