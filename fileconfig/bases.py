@@ -1,4 +1,4 @@
-# bases.py
+# bases.py - to be subclassed by client code
 
 import meta
 
@@ -6,6 +6,7 @@ __all__ = ['Config', 'Stacked']
 
 
 class Config(object):
+    """Return section by name from filename as instance."""
 
     __metaclass__ = meta.ConfigMeta
 
@@ -23,12 +24,14 @@ class Config(object):
 
     @property
     def names(self):
+        """Names, by which the instance can be retrieved."""
         if getattr(self, 'key', None) is None:
             return self.aliases
         return [self.key] + self.aliases
 
 
 class Stacked(Config):
+    """Return section by name from first matching file as instance."""
 
     __metaclass__ = meta.StackedMeta
 

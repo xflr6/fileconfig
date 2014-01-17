@@ -1,9 +1,10 @@
-# stacks.py
+# stacks.py - contain config, create and insert subclasses
 
 __all__ =  ['ConfigStack']
 
 
 class ConfigStack(object):
+    """Ordered and filename-indexes collection of Config classes."""
 
     def __init__(self, config):
         self._base = config
@@ -11,6 +12,7 @@ class ConfigStack(object):
         self._classes = [config]
 
     def insert(self, index, filename):
+        """Insert a new subclass with filename at index, mimic __module__."""
         base = self._base
         dct = {'__module__': base.__module__, 'filename': filename, '_stack': self}
         cls = type(base.__name__, (base,), dct)
@@ -26,5 +28,3 @@ class ConfigStack(object):
 
     def __repr__(self):
         return '<%s %r>' % (self.__class__.__name__, self._classes)
-
-

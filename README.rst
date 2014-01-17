@@ -33,7 +33,7 @@ the current working directory if its file not happens do be there).
     >>> import fileconfig
 
     >>> class Cfg(fileconfig.Config):
-    ...     filename = 'examples/pet-shop.ini'
+    ...     filename = 'docs/pet-shop.ini'
     ...     def __init__(self, key, **kwargs):
     ...         self.key = key
     ...         self.__dict__.update(kwargs)
@@ -146,7 +146,7 @@ Config file sections can inherit from another section:
 
 ::
 
-    [polly]
+    [Polly]
     inherits = parrot
     can_talk = no
     characteristics = dead, totally stiff, ceased to exist
@@ -155,12 +155,12 @@ Specified keys override inherited ones:
 
 .. code:: python
 
-    >>> print Cfg('polly')
+    >>> print Cfg('Polly')
     {
       'can_talk': 'no',
       'characteristics': 'dead, totally stiff, ceased to exist',
       'inherits': 'parrot',
-      'key': 'polly',
+      'key': 'Polly',
       'quantity': '0',
       'species': 'Norwegian blue'
     }
@@ -177,7 +177,7 @@ Use the class to iterate over the instances from all section:
 .. code:: python
 
     >>> list(Cfg)
-    [__main__.Cfg('parrot'), __main__.Cfg('slug'), __main__.Cfg('polly')]
+    [__main__.Cfg('parrot'), __main__.Cfg('slug'), __main__.Cfg('Polly')]
 
 Print the string representation of all instances:
 
@@ -210,18 +210,82 @@ your needs.
     ...             self.characteristics = [c.strip() for c in characteristics.split(',')]
     ...         super(Pet, self).__init__(**kwargs)
 
-    >>> print Pet('polly')
+    >>> print Pet('Polly')
     {
       'can_talk': False,
       'characteristics': ['dead', 'totally stiff', 'ceased to exist'],
       'inherits': 'parrot',
-      'key': 'polly',
+      'key': 'Polly',
       'quantity': 0,
       'species': 'Norwegian blue'
     }
 
 This way, the ``__init__`` method also defines parameters as required
 or optional, set their defaults, etc.
+
+
+Overlay
+-------
+
+Sometimes one wants to **combine multiple config files**, e.g. have
+a default file included in the package directory, overridden by a
+user-supplied file in a different location.
+
+To support this, subclass ``fileconfig.Stacked`` and set the
+``filename`` to the location of the default config.
+
+.. code:: python
+
+    >>> class Settings(fileconfig.Stacked):
+    ...     filename = 'docs/pet-shop.ini'
+    ...     __str__ = Cfg.__str__.__func__
+
+Use the ``add`` method to load an overriding config file on top of
+that:
+
+.. code:: python
+
+    >>> Settings.add('docs/lumberjack.ini')
+
+If the filename is relative, it is resolved **relative to the path
+of the module** where the ``add`` method has been called.
+
+You can access the sections from all files:
+
+.. code:: python
+
+    >>> print Settings('Bevis')
+    {
+      'can_talk': 'yes',
+      'characteristics': "sleeps all night, works all day, puts on women's clothing",
+      'key': 'Bevis',
+      'species': 'human'
+    }
+
+As long as they have *different* names:
+
+.. code:: python
+
+    >>> print Settings('Polly')
+    {
+      'can_talk': 'no',
+      'characteristics': 'dead, totally stiff, ceased to exist',
+      'inherits': 'parrot',
+      'key': 'Polly',
+      'quantity': '0',
+      'species': 'Norwegian blue'
+    }
+
+Config files added to the top of the stack mask sections with the
+same names from previous files:
+
+.. code:: python
+
+    >>> print Settings('parrot')
+    {
+      'characteristics': 'unsolved problem',
+      'key': 'parrot'
+    }
 
 
 Customization

@@ -14,11 +14,11 @@ SECTION = 'default'
 class ConfigMeta(type):
     """Parse file, create instance for each section, return by section or alias."""
 
-    _parser = ConfigParser.SafeConfigParser
+    filename = None
 
     _pass_notfound = False
 
-    filename = None
+    _parser = ConfigParser.SafeConfigParser
 
     @staticmethod
     def _split_aliases(aliases):
@@ -90,11 +90,13 @@ class ConfigMeta(type):
 
 
 class StackedMeta(ConfigMeta):
+    """Can register multiple filenames and returns the first match."""
 
     _stack = None
 
     def __init__(self, name, bases, dct):
         super(StackedMeta, self).__init__(name, bases, dct)
+
         if self.filename is not None:
             self._stack = stack.ConfigStack(self)
 
@@ -130,4 +132,5 @@ class StackedMeta(ConfigMeta):
     def __repr__(self):
         if self._stack is None:
             return super(StackedMeta, self).__repr__()
+
         return '<class %s.%s[%r]>' % (self.__module__, self.__name__, self.filename)
