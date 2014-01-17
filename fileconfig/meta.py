@@ -1,16 +1,23 @@
 # meta.py - parse config, collect arguments, create instances
 
 import os
-import inspect
 import ConfigParser
 
+import tools
+
 __all__ = ['ConfigMeta']
+
+SECTION = 'default'
 
 
 class ConfigMeta(type):
     """Parse file, create instance for each section, return by section or alias."""
 
     _parser = ConfigParser.SafeConfigParser
+
+    _pass_notfound = False
+
+    filename = None
 
     @staticmethod
     def _split_aliases(aliases):
@@ -20,14 +27,14 @@ class ConfigMeta(type):
         if self.filename is None:
             return
 
-        if os.path.isabs(self.filename):
-            filename = self.filename
-        else:
-            current_path = os.path.dirname(inspect.getfile(self.__init__))
-            filename = os.path.join(current_path, self.filename)
+        if not os.path.isabs(self.filename):
+            self.filename = os.path.join(tools.class_path(self), self.filename)
+
+        if not self._pass_notfound and not os.path.exists(self.filename):
+            open(self.filename)
 
         parser = self._parser()
-        parser.read(filename)
+        parser.read(self.filename)
 
         self._keys = []
         self._kwargs = {}
@@ -53,7 +60,7 @@ class ConfigMeta(type):
 
         self._cache = {}
 
-    def __call__(self, key='default'):
+    def __call__(self, key=SECTION):
         if isinstance(key, self):
             return key
 

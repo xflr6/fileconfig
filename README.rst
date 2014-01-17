@@ -3,11 +3,11 @@ Fileconfig
 
 |PyPI version| |License| |Downloads|
 
-Fileconfig turns config file sections into Python objects. Create
-a class referring to an INI file specifying the arguments for the
-different instances to be created. Calling the class with the
-section name as parameter will return the instance with the
-parameters specified in the config section.
+Fileconfig turns config file sections into instances of your class.
+Create a class referring to an **INI file** collecting the arguments
+for the different instances to be created. Calling the class with
+the section name as parameter will return the instance with the
+parameters specified in the given section.
 
 
 Installation
@@ -22,17 +22,18 @@ Usage
 -----
 
 Create as subclass of ``fileconfig.Config`` and set its ``filename``
-attribute to your INI-file name.
+attribute to the path of your INI file.
 
-If the filename is relative, it is interpreted relative to the path
-of the module where your class is defined.
+If the filename is relative, it is resolved **relative to the path
+of the module** where your class is defined (i.e. *not* relative to
+the current working directory if its file not happens do be there).
 
 .. code:: python
 
     >>> import fileconfig
 
     >>> class Cfg(fileconfig.Config):
-    ...     filename = 'examples/pets.ini'
+    ...     filename = 'examples/pet-shop.ini'
     ...     def __init__(self, key, **kwargs):
     ...         self.key = key
     ...         self.__dict__.update(kwargs)
@@ -41,10 +42,10 @@ of the module where your class is defined.
     ...         return '{\n%s\n}' % ',\n'.join(items)
 
 On instance creation, the ``__init__`` method will be called with
-the section name (``key``) and the keyword args from the selected
-section of the INI-file.
+the section name (``key``) and the keyword parameterss from the
+given section of the specified file.
 
-Suppose your INI-file begins like this:
+Suppose your INI file begins like this:
 
 ::
 
@@ -54,8 +55,7 @@ Suppose your INI-file begins like this:
     quantity = 0
     characteristics = beatiful plumage, pining for the fjords
 
-
-To retrieve an instance, call the class with a section name.
+To retrieve this instance, call the class with its section name.
 
 .. code:: python
 
@@ -70,31 +70,38 @@ To retrieve an instance, call the class with a section name.
       'species': 'Norwegian blue'
     }
 
-Only one instance will be created for each section (a.k.a. the singleton pattern):
+
+Singleton
+---------
+
+Only *one* instance will be created, cached and returned for each
+config file section (a.k.a. the singleton pattern):
 
 .. code:: python
 
     >>> Cfg('parrot') is c
     True
 
-The default ``__repr__`` of instances is roundtripable:
+The constructor is also *idempotent*:
+
+.. code:: python
+
+    >>> Cfg(c) is c
+    True
+	
+The default ``__repr__`` of instances allows roundtrips:
 
 .. code:: python
 
     >>> c
     __main__.Cfg('parrot')
 
-The constructor is also idempotent:
-
-.. code:: python
-
-    >>> Cfg(c) is c
-    True
 
 Aliasing
 --------
 
-You can specify a *space-delimited* list of ``aliases`` for each section:
+You can specify a **space-delimited** list of ``aliases`` for each
+section:
 
 ::
 
@@ -103,6 +110,8 @@ You can specify a *space-delimited* list of ``aliases`` for each section:
     species = slug
     can_talk = no
     quantity = 1
+
+For changig the delimiter, see below.
 
 Aliases map to the *same* instance:
 
@@ -116,7 +125,7 @@ Aliases map to the *same* instance:
     >>> s is Cfg('snail') is Cfg('slug')
     True
 
-Inspect instance ``names``:
+Inspect instance ``names`` (key + aliases):
 
 .. code:: python
 
@@ -129,17 +138,11 @@ Inspect instance ``names``:
     >>> s.names
     ['slug', 'snail', 'special_offer']
 
-To use a different delimiter for ``aliases`` override the ``_split_aliases``
-method on your class.
-
-Make it a ``staticmethod`` or ``classmethod`` that takes a single string
-argument and returns the splitted list.
-
 
 Inheritance
 -----------
 
-INI-file sections can inherit from another section:
+Config file sections can inherit from another section:
 
 ::
 
@@ -162,7 +165,8 @@ Specified keys override inherited ones:
       'species': 'Norwegian blue'
     }
 
-Multiple or chained inheritance is not supported.
+Sections can inherit from a single section. Multiple or transitive
+inheritance is not supported.
 
 
 Introspection
@@ -189,11 +193,12 @@ Print the string representation of all instances:
 Hints
 -----
 
-Apart from the ``key``, ``aliases``, and ``inherits`` parameters, the
-``__init__`` method receives the *unprocessed strings* from the INI-file
-parser.
+Apart from the ``key``, ``aliases``, and ``inherits`` parameters,
+your ``__init__`` method receives the **unprocessed strings** from
+the config file parser.
 
-Use the ``__init__`` method to process the other arguments:
+Use the ``__init__`` method to process the other parameters to fit
+your needs. 
 
 .. code:: python
 
@@ -215,11 +220,28 @@ Use the ``__init__`` method to process the other arguments:
       'species': 'Norwegian blue'
     }
 
-By default, this package will use ``ConfigParser.SafeConfigParser``
-from the standard library to parse the INI-file.
+This way, the ``__init__`` method also defines parameters as required
+or optional, set their defaults, etc.
 
-To use a different parser, override the ``_parser`` attribute in your
-``fileconfig.Config`` subclass.
+
+Customization
+-------------
+
+To use a **different delimiter** for ``aliases`` override the
+``_split_aliases`` method on your class.
+Make it a ``staticmethod`` or ``classmethod`` that takes a string
+argument and returns the splitted list.
+
+
+By default, fileconfig will use ``ConfigParser.SafeConfigParser``
+from the standard library to parse the config file.
+To use a **different parser**, override the ``_parser`` attribute
+in your ``fileconfig.Config`` subclass.
+
+
+Fileconfig raises an error, if the config file is not found.
+If you want this **error to pass silently** instead, set the
+``_pass_notfound`` atribute on your subclass to ``True``.
 
 
 License

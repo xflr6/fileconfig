@@ -2,6 +2,20 @@ Fileconfig Changelog
 ====================
 
 
+Version 0.2
+-------------
+
+Added default __init__ and __str__ methods.
+
+Save Config filename as absolute path.
+
+Raise an error if the file is not found.
+
+Support direct usage from then interactive shell.
+
+Add Stack as experimental feature.
+
+
 Version 0.1
 -----------
 
