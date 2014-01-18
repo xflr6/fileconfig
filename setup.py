@@ -7,7 +7,7 @@ except ImportError:
 
 setup(
     name='fileconfig',
-    version='0.3.1',
+    version='0.4',
     author='Sebastian Bank',
     author_email='sebastian.bank@uni-leipzig.de',
     description='Config file sections as objects',

@@ -4,7 +4,7 @@ __all__ =  ['ConfigStack']
 
 
 class ConfigStack(object):
-    """Ordered and filename-indexes collection of Config classes."""
+    """Ordered and filename-indexed collection of Config classes."""
 
     def __init__(self, config):
         self._base = config
@@ -21,6 +21,8 @@ class ConfigStack(object):
         self._classes.insert(index, cls)
 
     def __getitem__(self, filename):
+        if not isinstance(filename, basestring):
+            return self._classes[filename]
         return self._map[filename]
 
     def __iter__(self):

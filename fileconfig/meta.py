@@ -1,6 +1,7 @@
 # meta.py - parse config, collect arguments, create instances
 
 import os
+import codecs
 import ConfigParser
 
 import stack
@@ -20,6 +21,8 @@ class ConfigMeta(type):
 
     _parser = ConfigParser.SafeConfigParser
 
+    _encoding = None
+
     @staticmethod
     def _split_aliases(aliases):
         return aliases.replace(',', ' ').split()
@@ -35,14 +38,22 @@ class ConfigMeta(type):
             open(self.filename)
 
         parser = self._parser()
-        parser.read(self.filename)
+        if self._encoding is None:
+            parser.read(self.filename)
+            enc = lambda s: s
+        else:
+            with codecs.open(self.filename, encoding=self._encoding) as fd:
+                parser.readfp(fd)
+            enc = tools.try_encode
 
         self._keys = []
         self._kwargs = {}
         self._aliases = {}
 
         for key in parser.sections():
-            kwargs = dict(parser.items(key), key=key)
+            key = enc(key)
+            items = ((enc(k), enc(v)) for k, v in parser.items(key))
+            kwargs = dict(items, key=key)
 
             if 'aliases' in kwargs:
                 aliases =  kwargs.pop('aliases')
@@ -92,28 +103,28 @@ class ConfigMeta(type):
 class StackedMeta(ConfigMeta):
     """Can register multiple filenames and returns the first match."""
 
-    _stack = None
+    stack = None
 
     def __init__(self, name, bases, dct):
         super(StackedMeta, self).__init__(name, bases, dct)
 
         if self.filename is not None:
-            self._stack = stack.ConfigStack(self)
+            self.stack = stack.ConfigStack(self)
 
-    def add(self, filename, position=0):
+    def add(self, filename, position=0, caller_steps=1):
         if not os.path.isabs(filename):
-            filename = os.path.join(tools.caller_path(), filename)
+            filename = os.path.join(tools.caller_path(caller_steps), filename)
 
-        self._stack.insert(position, filename)
+        self.stack.insert(position, filename)
 
     def __getitem__(self, filename):
-        return self._stack[filename]
+        return self.stack[filename]
 
     def __call__(self, key=SECTION):
         if isinstance(key, self):
             return key
 
-        for cls in self._stack:
+        for cls in self.stack:
             try:
                 return super(StackedMeta, cls).__call__(key)
             except KeyError:
@@ -123,14 +134,14 @@ class StackedMeta(ConfigMeta):
 
     def __iter__(self):
         seen = set()
-        for cls in self._stack:
+        for cls in self.stack:
             for inst in super(StackedMeta, cls).__iter__():
                 if inst.key not in seen:
                     yield inst
                     seen.add(inst.key)
 
     def __repr__(self):
-        if self._stack is None:
+        if self.stack is None:
             return super(StackedMeta, self).__repr__()
 
         return '<class %s.%s[%r]>' % (self.__module__, self.__name__, self.filename)

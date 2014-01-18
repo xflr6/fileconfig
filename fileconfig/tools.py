@@ -3,7 +3,7 @@
 import os
 import inspect
 
-__all__ = ['class_path', 'caller_path']
+__all__ = ['class_path', 'caller_path', 'try_encode']
 
 
 def class_path(cls):
@@ -28,3 +28,10 @@ def caller_path(steps=1):
     if not path:
         return os.getcwd()
     return path
+
+
+def try_encode(chars, encoding='ascii'):
+    try:
+        return chars.encode(encoding)
+    except UnicodeEncodeError:
+        return chars

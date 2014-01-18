@@ -303,6 +303,11 @@ To use a **different parser**, override the ``_parser`` attribute
 in your ``fileconfig.Config`` subclass.
 
 
+To specify the encoding from which the config file should be 
+decoded by the config parser, override the ``_encoding`` attribute
+on your sublass.
+
+
 Fileconfig raises an error, if the config file is not found.
 If you want this **error to pass silently** instead, set the
 ``_pass_notfound`` atribute on your subclass to ``True``.

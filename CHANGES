@@ -1,6 +1,17 @@
 Fileconfig Changelog
 ====================
 
+
+Version 0.4
+-----------
+
+Add custom encoding support.
+
+Make available underlying stack attribute on Stacked.
+
+Add caller_steps parameter to add method of Stacked.
+
+
 Version 0.3.1
 -------------
 
