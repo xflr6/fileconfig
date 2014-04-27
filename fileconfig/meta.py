@@ -9,7 +9,7 @@ import tools
 
 __all__ = ['ConfigMeta']
 
-SECTION = 'default'
+DEFAULT = 'default'
 
 
 class ConfigMeta(type):
@@ -28,6 +28,9 @@ class ConfigMeta(type):
         return aliases.replace(',', ' ').split()
 
     def __init__(self, name, bases, dct):
+        if self.__module__ == '__builtin__':  # workaround nose doctest issue
+            self.__module__ = '__main__'
+
         if self.filename is None:
             return
 
@@ -56,7 +59,7 @@ class ConfigMeta(type):
             kwargs = dict(items, key=key)
 
             if 'aliases' in kwargs:
-                aliases =  kwargs.pop('aliases')
+                aliases = kwargs.pop('aliases')
                 if aliases.strip():
                     aliases = self._split_aliases(aliases)
                     self._aliases.update((a, key) for a in aliases)
@@ -72,7 +75,7 @@ class ConfigMeta(type):
 
         self._cache = {}
 
-    def __call__(self, key=SECTION):
+    def __call__(self, key=DEFAULT):
         if isinstance(key, self):
             return key
 
@@ -88,7 +91,8 @@ class ConfigMeta(type):
         inst = super(ConfigMeta, self).__call__(key=key, **kwargs)
 
         if key is not None:
-            self._cache[key] = inst 
+            self._cache[key] = inst
+
         return inst
 
     def __iter__(self):
@@ -120,7 +124,7 @@ class StackedMeta(ConfigMeta):
     def __getitem__(self, filename):
         return self.stack[filename]
 
-    def __call__(self, key=SECTION):
+    def __call__(self, key=DEFAULT):
         if isinstance(key, self):
             return key
 

@@ -3,11 +3,10 @@ Fileconfig
 
 |PyPI version| |License| |Downloads|
 
-Fileconfig turns config file sections into instances of your class.
-Create a class referring to an **INI file** collecting the arguments
-for the different instances to be created. Calling the class with
-the section name as parameter will return the instance with the
-parameters specified in the given section.
+Fileconfig turns config file sections into instances of your class. Create a
+class referring to an **INI file** collecting the arguments for the different
+instances to be created. Calling the class with the section name as parameter
+will return the instance with the parameters specified in the given section.
 
 
 Installation
@@ -21,12 +20,12 @@ Installation
 Usage
 -----
 
-Create as subclass of ``fileconfig.Config`` and set its ``filename``
-attribute to the path of your INI file.
+Create as subclass of ``fileconfig.Config`` and set its ``filename`` attribute
+to the path of your INI file.
 
-If the filename is relative, it is resolved **relative to the path
-of the module** where your class is defined (i.e. *not* relative to
-the current working directory if its file not happens do be there).
+If the filename is relative, it is resolved **relative to the path of the
+module** where your class is defined (i.e. *not* relative to the current working
+directory if its file not happens do be there).
 
 .. code:: python
 
@@ -41,19 +40,19 @@ the current working directory if its file not happens do be there).
     ...         items = ('  %r: %r' % (k, v) for k, v in sorted(self.__dict__.iteritems()))
     ...         return '{\n%s\n}' % ',\n'.join(items)
 
-On instance creation, the ``__init__`` method will be called with
-the section name (``key``) and the keyword parameterss from the
-given section of the specified file.
+On instance creation, the ``__init__`` method will be called with the section
+name (``key``) and the keyword parameters from the given section of the
+specified file.
 
 Suppose your INI file begins like this:
 
-::
+.. code:: ini
 
     [parrot]
     species = Norwegian blue
     can_talk = yes
     quantity = 0
-    characteristics = beatiful plumage, pining for the fjords
+    characteristics = beautiful plumage, pining for the fjords
 
 To retrieve this instance, call the class with its section name.
 
@@ -64,7 +63,7 @@ To retrieve this instance, call the class with its section name.
     >>> print c
     {
       'can_talk': 'yes',
-      'characteristics': 'beatiful plumage, pining for the fjords',
+      'characteristics': 'beautiful plumage, pining for the fjords',
       'key': 'parrot',
       'quantity': '0',
       'species': 'Norwegian blue'
@@ -74,8 +73,8 @@ To retrieve this instance, call the class with its section name.
 Singleton
 ---------
 
-Only *one* instance will be created, cached and returned for each
-config file section (a.k.a. the singleton pattern):
+Only *one* instance will be created, cached and returned for each config file
+section (a.k.a. the singleton pattern):
 
 .. code:: python
 
@@ -89,7 +88,7 @@ The constructor is also *idempotent*:
     >>> Cfg(c) is c
     True
 	
-The default ``__repr__`` of instances allows roundtrips:
+The default ``__repr__`` of instances allows round-trips:
 
 .. code:: python
 
@@ -100,10 +99,9 @@ The default ``__repr__`` of instances allows roundtrips:
 Aliasing
 --------
 
-You can specify a **space-delimited** list of ``aliases`` for each
-section:
+You can specify a **space-delimited** list of ``aliases`` for each section:
 
-::
+.. code:: ini
 
     [slug]
     aliases = snail special_offer
@@ -111,7 +109,7 @@ section:
     can_talk = no
     quantity = 1
 
-For changig the delimiter, see below.
+For changing the delimiter, see below.
 
 Aliases map to the *same* instance:
 
@@ -144,7 +142,7 @@ Inheritance
 
 Config file sections can inherit from another section:
 
-::
+.. code:: ini
 
     [Polly]
     inherits = parrot
@@ -165,8 +163,8 @@ Specified keys override inherited ones:
       'species': 'Norwegian blue'
     }
 
-Sections can inherit from a single section. Multiple or transitive
-inheritance is not supported.
+Sections can inherit from a single section. Multiple or transitive inheritance
+is not supported.
 
 
 Introspection
@@ -186,19 +184,18 @@ Print the string representation of all instances:
     >>> Cfg.pprint_all()  # doctest: +ELLIPSIS
     {
       'can_talk': 'yes',
-      'characteristics': 'beatiful plumage, pining for the fjords',
+      'characteristics': 'beautiful plumage, pining for the fjords',
       'key': 'parrot',
     ...
 
 Hints
 -----
 
-Apart from the ``key``, ``aliases``, and ``inherits`` parameters,
-your ``__init__`` method receives the **unprocessed strings** from
-the config file parser.
+Apart from the ``key``, ``aliases``, and ``inherits`` parameters, your
+``__init__`` method receives the **unprocessed strings** from the config file
+parser.
 
-Use the ``__init__`` method to process the other parameters to fit
-your needs. 
+Use the ``__init__`` method to process the other parameters to fit your needs.
 
 .. code:: python
 
@@ -220,19 +217,19 @@ your needs.
       'species': 'Norwegian blue'
     }
 
-This way, the ``__init__`` method also defines parameters as required
-or optional, set their defaults, etc.
+This way, the ``__init__`` method also defines parameters as required or
+optional, set their defaults, etc.
 
 
 Overlay
 -------
 
-Sometimes one wants to **combine multiple config files**, e.g. have
-a default file included in the package directory, overridden by a
-user-supplied file in a different location.
+Sometimes one wants to **combine multiple config files**, e.g. have a default
+file included in the package directory, overridden by a user-supplied file in a
+different location.
 
-To support this, subclass ``fileconfig.Stacked`` and set the
-``filename`` to the location of the default config.
+To support this, subclass ``fileconfig.Stacked`` and set the ``filename`` to the
+location of the default config.
 
 .. code:: python
 
@@ -240,15 +237,14 @@ To support this, subclass ``fileconfig.Stacked`` and set the
     ...     filename = 'docs/pet-shop.ini'
     ...     __str__ = Cfg.__str__.__func__
 
-Use the ``add`` method to load an overriding config file on top of
-that:
+Use the ``add`` method to load an overriding config file on top of that:
 
 .. code:: python
 
     >>> Settings.add('docs/lumberjack.ini')
 
-If the filename is relative, it is resolved **relative to the path
-of the module** where the ``add`` method has been called.
+If the filename is relative, it is resolved **relative to the path of the
+module** where the ``add`` method has been called.
 
 You can access the sections from all files:
 
@@ -276,8 +272,8 @@ As long as they have *different* names:
       'species': 'Norwegian blue'
     }
 
-Config files added to the top of the stack mask sections with the
-same names from previous files:
+Config files added to the top of the stack mask sections with the same names
+from previous files:
 
 .. code:: python
 
@@ -291,33 +287,33 @@ same names from previous files:
 Customization
 -------------
 
-To use a **different delimiter** for ``aliases`` override the
-``_split_aliases`` method on your class.
-Make it a ``staticmethod`` or ``classmethod`` that takes a string
-argument and returns the splitted list.
+To use a **different delimiter** for ``aliases`` override the ``_split_aliases``
+method on your class. Make it a ``staticmethod`` or ``classmethod`` that takes a
+string argument and returns the splitted list.
 
 
-By default, fileconfig will use ``ConfigParser.SafeConfigParser``
-from the standard library to parse the config file.
-To use a **different parser**, override the ``_parser`` attribute
-in your ``fileconfig.Config`` subclass.
+By default, fileconfig will use ``ConfigParser.SafeConfigParser`` from the
+standard library to parse the config file. To use a **different parser**,
+override the ``_parser`` attribute in your ``fileconfig.Config`` subclass.
 
 
-To specify the encoding from which the config file should be 
-decoded by the config parser, override the ``_encoding`` attribute
-on your sublass.
+To specify the **encoding** from which the config file should be  decoded by the
+config parser, override the ``_encoding`` attribute on your subclass.
 
 
-Fileconfig raises an error, if the config file is not found.
-If you want this **error to pass silently** instead, set the
-``_pass_notfound`` atribute on your subclass to ``True``.
+Fileconfig raises an error, if the config file is not found. If you want this
+**error to pass silently** instead, set the ``_pass_notfound`` attribute on your
+subclass to ``True``.
 
 
 License
 -------
 
-Fileconfig is distributed under the `MIT license
-<http://opensource.org/licenses/MIT>`_.
+Fileconfig is distributed under the `MIT license`_.
+
+
+.. _MIT license: http://opensource.org/licenses/MIT
+
 
 .. |PyPI version| image:: https://pypip.in/v/fileconfig/badge.png
     :target: https://pypi.python.org/pypi/fileconfig
