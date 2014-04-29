@@ -2,6 +2,14 @@ Fileconfig Changelog
 ====================
 
 
+Version 0.5
+-----------
+
+Added Python 3.3+ support.
+
+Documented sys._getframe dependency.
+
+
 Version 0.4.1
 -------------
 

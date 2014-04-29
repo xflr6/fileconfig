@@ -12,6 +12,8 @@ will return the instance with the parameters specified in the given section.
 Installation
 ------------
 
+This package runs under Python 2.7 and 3.3+, use pip_ to install:
+
 .. code:: bash
 
     $ pip install fileconfig
@@ -36,9 +38,6 @@ directory if its file not happens do be there).
     ...     def __init__(self, key, **kwargs):
     ...         self.key = key
     ...         self.__dict__.update(kwargs)
-    ...     def __str__(self):
-    ...         items = ('  %r: %r' % (k, v) for k, v in sorted(self.__dict__.iteritems()))
-    ...         return '{\n%s\n}' % ',\n'.join(items)
 
 On instance creation, the ``__init__`` method will be called with the section
 name (``key``) and the keyword parameters from the given section of the
@@ -60,7 +59,7 @@ To retrieve this instance, call the class with its section name.
 
     >>> c = Cfg('parrot')
 
-    >>> print c
+    >>> print(c)
     {
       'can_talk': 'yes',
       'characteristics': 'beautiful plumage, pining for the fjords',
@@ -153,7 +152,7 @@ Specified keys override inherited ones:
 
 .. code:: python
 
-    >>> print Cfg('Polly')
+    >>> print(Cfg('Polly'))
     {
       'can_talk': 'no',
       'characteristics': 'dead, totally stiff, ceased to exist',
@@ -207,7 +206,7 @@ Use the ``__init__`` method to process the other parameters to fit your needs.
     ...             self.characteristics = [c.strip() for c in characteristics.split(',')]
     ...         super(Pet, self).__init__(**kwargs)
 
-    >>> print Pet('Polly')
+    >>> print(Pet('Polly'))
     {
       'can_talk': False,
       'characteristics': ['dead', 'totally stiff', 'ceased to exist'],
@@ -235,7 +234,6 @@ location of the default config.
 
     >>> class Settings(fileconfig.Stacked):
     ...     filename = 'docs/pet-shop.ini'
-    ...     __str__ = Cfg.__str__.__func__
 
 Use the ``add`` method to load an overriding config file on top of that:
 
@@ -250,7 +248,7 @@ You can access the sections from all files:
 
 .. code:: python
 
-    >>> print Settings('Bevis')
+    >>> print(Settings('Bevis'))
     {
       'can_talk': 'yes',
       'characteristics': "sleeps all night, works all day, puts on women's clothing",
@@ -262,7 +260,7 @@ As long as they have *different* names:
 
 .. code:: python
 
-    >>> print Settings('Polly')
+    >>> print(Settings('Polly'))
     {
       'can_talk': 'no',
       'characteristics': 'dead, totally stiff, ceased to exist',
@@ -277,7 +275,7 @@ from previous files:
 
 .. code:: python
 
-    >>> print Settings('parrot')
+    >>> print(Settings('parrot'))
     {
       'characteristics': 'unsolved problem',
       'key': 'parrot'
@@ -306,11 +304,24 @@ Fileconfig raises an error, if the config file is not found. If you want this
 subclass to ``True``.
 
 
+Potential issues
+----------------
+
+This package uses ``sys._getframe`` (which is almost the same as
+``inspect.currentframe``, see__ docs__). Under IronPython this might require
+enabling the ``FullFrames`` option of the interpreter.
+
+.. __: http://docs.python.org/2/library/sys.html#sys._getframe
+.. __: http://docs.python.org/2/library/inspect.html#inspect.currentframe
+
+
 License
 -------
 
 Fileconfig is distributed under the `MIT license`_.
 
+
+.. _pip: http://pip.readthedocs.org
 
 .. _MIT license: http://opensource.org/licenses/MIT
 

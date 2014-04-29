@@ -1,11 +1,11 @@
 # meta.py - parse config, collect arguments, create instances
 
 import os
-import codecs
-import ConfigParser
+import io
 
-import stack
-import tools
+from ._compat import PY2, try_encode, ConfigParser
+
+from . import stack, tools
 
 __all__ = ['ConfigMeta']
 
@@ -19,20 +19,23 @@ class ConfigMeta(type):
 
     _pass_notfound = False
 
-    _parser = ConfigParser.SafeConfigParser
+    _parser = ConfigParser
 
     _encoding = None
+
+    _enc = staticmethod(lambda s: s)
 
     @staticmethod
     def _split_aliases(aliases):
         return aliases.replace(',', ' ').split()
 
     def __init__(self, name, bases, dct):
-        if self.__module__ == '__builtin__':  # workaround nose doctest issue
-            self.__module__ = '__main__'
-
         if self.filename is None:
             return
+
+        # work around nose doctest issue
+        if self.__module__ in ('__builtin__', 'builtins'):
+            self.__module__ = '__main__'
 
         if not os.path.isabs(self.filename):
             self.filename = os.path.join(tools.class_path(self), self.filename)
@@ -41,13 +44,18 @@ class ConfigMeta(type):
             open(self.filename)
 
         parser = self._parser()
-        if self._encoding is None:
-            parser.read(self.filename)
-            enc = lambda s: s
+        enc = self._enc
+
+        if PY2:
+            if self._encoding is None:
+                parser.read(self.filename)
+            else:
+                with io.open(self.filename, encoding=self._encoding) as fd:
+                    parser.readfp(fd)
+                enc = try_encode
         else:
-            with codecs.open(self.filename, encoding=self._encoding) as fd:
+            with io.open(self.filename, encoding=self._encoding) as fd:
                 parser.readfp(fd)
-            enc = tools.try_encode
 
         self._keys = []
         self._kwargs = {}
@@ -101,7 +109,7 @@ class ConfigMeta(type):
 
     def pprint_all(self):
         for c in self:
-            print '%s\n' % c
+            print('%s\n' % c)
 
 
 class StackedMeta(ConfigMeta):

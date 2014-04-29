@@ -1,9 +1,10 @@
 # tools.py - runtime path inspection
 
+import sys
 import os
 import inspect
 
-__all__ = ['class_path', 'caller_path', 'try_encode']
+__all__ = ['class_path', 'caller_path']
 
 
 def class_path(cls):
@@ -21,7 +22,8 @@ def class_path(cls):
 
 def caller_path(steps=1):
     """Return the path to the source file of the current frames' caller."""
-    frame = inspect.currentframe(steps + 1)
+
+    frame = sys._getframe(steps + 1)
 
     try:
         path = os.path.dirname(frame.f_code.co_filename)
@@ -32,17 +34,3 @@ def caller_path(steps=1):
         path = os.getcwd()
 
     return os.path.realpath(path)
-
-
-def try_encode(chars, encoding='ascii'):
-    """Return encoded chars, leave unchanged if encoding fails.
-
-    >>> try_encode(u'spam')
-    'spam'
-
-    >>> assert try_encode(u'm\xf8\xf8se') == u'm\xf8\xf8se'
-    """
-    try:
-        return chars.encode(encoding)
-    except UnicodeEncodeError:
-        return chars

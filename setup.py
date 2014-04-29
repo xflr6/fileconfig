@@ -4,7 +4,7 @@ from setuptools import setup
 
 setup(
     name='fileconfig',
-    version='0.4.1',
+    version='0.5',
     author='Sebastian Bank',
     author_email='sebastian.bank@uni-leipzig.de',
     description='Config file sections as objects',
@@ -22,6 +22,9 @@ setup(
         'Operating System :: OS Independent',
         'Programming Language :: Python :: 2',
         'Programming Language :: Python :: 2.7',
+        'Programming Language :: Python :: 3',
+        'Programming Language :: Python :: 3.3',
+        'Programming Language :: Python :: 3.4',
         'Topic :: Software Development :: Libraries :: Python Modules',
     ],
 )

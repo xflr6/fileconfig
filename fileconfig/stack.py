@@ -2,6 +2,8 @@
 
 __all__ = ['ConfigStack']
 
+from ._compat import integer_types
+
 
 class ConfigStack(object):
     """Ordered and filename-indexed collection of Config classes."""
@@ -21,7 +23,7 @@ class ConfigStack(object):
         self._classes.insert(index, cls)
 
     def __getitem__(self, filename):
-        if isinstance(filename, (int, long)):
+        if isinstance(filename, integer_types):
             return self._classes[filename]
 
         return self._map[filename]

@@ -1,20 +1,21 @@
 # bases.py - to be subclassed by client code
 
-import meta
+from ._compat import iteritems, with_metaclass
+
+from . import meta
 
 __all__ = ['Config', 'Stacked']
 
 
-class Config(object):
+class Config(with_metaclass(meta.ConfigMeta, object)):
     """Return section by name from filename as instance."""
-
-    __metaclass__ = meta.ConfigMeta
 
     def __init__(self, **kwargs):
         self.__dict__.update(kwargs)
 
     def __str__(self):
-        return repr(self.__dict__)
+        items = ('  %r: %r' % (k, v) for k, v in sorted(iteritems(self.__dict__)))
+        return '{\n%s\n}' % ',\n'.join(items)
 
     def __repr__(self):
         if getattr(self, 'key', None) is None:
@@ -30,10 +31,8 @@ class Config(object):
         return [self.key] + self.aliases
 
 
-class Stacked(Config):
+class Stacked(with_metaclass(meta.StackedMeta, Config)):
     """Return section by name from first matching file as instance."""
-
-    __metaclass__ = meta.StackedMeta
 
     def __repr__(self):
         if getattr(self, 'key', None) is None:
