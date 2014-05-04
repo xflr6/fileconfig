@@ -1,5 +1,5 @@
 *.py[co]
-__pycache__
+__pycache__/
 MANIFEST
 build/
 dist/
@@ -8,5 +8,8 @@ dist/
 
 .coverage
 cover/
+htmlcov/
+.cache/
+.tox/
 
 Thumbs.db

@@ -5,8 +5,7 @@ import sys
 PY2 = sys.version_info[0] == 2
 
 
-if PY2:
-    text_type = unicode
+if PY2:  # pragma: no cover
     integer_types = (int, long)
 
     def iteritems(d):
@@ -28,8 +27,7 @@ if PY2:
     from ConfigParser import SafeConfigParser as ConfigParser
 
 
-else:
-    text_type = str
+else:  # pragma: no cover
     integer_types = (int, )
 
     def iteritems(d):

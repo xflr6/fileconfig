@@ -27,8 +27,12 @@ class Config(with_metaclass(meta.ConfigMeta, object)):
     def names(self):
         """Names, by which the instance can be retrieved."""
         if getattr(self, 'key', None) is None:
-            return self.aliases
-        return [self.key] + self.aliases
+            result = []
+        else:
+            result = [self.key]
+        if hasattr(self, 'aliases'):
+            result.extend(self.aliases)
+        return result
 
 
 class Stacked(with_metaclass(meta.StackedMeta, Config)):

@@ -1,7 +1,7 @@
 Fileconfig
 ==========
 
-|PyPI version| |License| |Downloads|
+|PyPI version| |License| |Wheel| |Downloads|
 
 Fileconfig turns config file sections into instances of your class. Create a
 class referring to an **INI file** collecting the arguments for the different
@@ -326,12 +326,15 @@ Fileconfig is distributed under the `MIT license`_.
 .. _MIT license: http://opensource.org/licenses/MIT
 
 
-.. |PyPI version| image:: https://pypip.in/v/fileconfig/badge.png
+.. |PyPI version| image:: https://pypip.in/v/fileconfig/badge.svg
     :target: https://pypi.python.org/pypi/fileconfig
     :alt: Latest PyPI Version
-.. |License| image:: https://pypip.in/license/fileconfig/badge.png
+.. |License| image:: https://pypip.in/license/fileconfig/badge.svg
     :target: https://pypi.python.org/pypi/fileconfig
     :alt: License
-.. |Downloads| image:: https://pypip.in/d/fileconfig/badge.png
+.. |Wheel| image:: https://pypip.in/wheel/fileconfig/badge.svg
+    :target: https://pypi.python.org/pypi/fileconfig
+    :alt: Wheel Status
+.. |Downloads| image:: https://pypip.in/d/fileconfig/badge.svg
     :target: https://pypi.python.org/pypi/fileconfig
     :alt: Downloads

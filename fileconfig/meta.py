@@ -7,7 +7,7 @@ from ._compat import PY2, try_encode, ConfigParser
 
 from . import stack, tools
 
-__all__ = ['ConfigMeta']
+__all__ = ['ConfigMeta', 'StackedMeta']
 
 DEFAULT = 'default'
 
@@ -39,6 +39,8 @@ class ConfigMeta(type):
 
         if not os.path.isabs(self.filename):
             self.filename = os.path.join(tools.class_path(self), self.filename)
+
+        self.filename = os.path.realpath(self.filename)
 
         if not self._pass_notfound and not os.path.exists(self.filename):
             open(self.filename)
@@ -155,5 +157,4 @@ class StackedMeta(ConfigMeta):
     def __repr__(self):
         if self.stack is None:
             return super(StackedMeta, self).__repr__()
-
         return '<class %s.%s[%r]>' % (self.__module__, self.__name__, self.filename)

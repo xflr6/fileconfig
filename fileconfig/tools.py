@@ -22,7 +22,6 @@ def class_path(cls):
 
 def caller_path(steps=1):
     """Return the path to the source file of the current frames' caller."""
-
     frame = sys._getframe(steps + 1)
 
     try:

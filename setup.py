@@ -1,17 +1,21 @@
 # setup.py
 
-from setuptools import setup
+from setuptools import setup, find_packages
 
 setup(
     name='fileconfig',
-    version='0.5',
+    version='0.5.1',
     author='Sebastian Bank',
     author_email='sebastian.bank@uni-leipzig.de',
     description='Config file sections as objects',
     keywords='configuration ini file inheritance aliasing',
     license='MIT',
     url='http://github.com/xflr6/fileconfig',
-    packages=['fileconfig'],
+    packages=find_packages(),
+    extras_require={
+        'dev': ['wheel'],
+        'test': ['nose', 'coverage', 'flake8', 'pep8-naming'],
+    },
     platforms='any',
     long_description=open('README.rst').read(),
     classifiers=[
