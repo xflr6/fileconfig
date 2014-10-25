@@ -1,7 +1,7 @@
 Fileconfig
 ==========
 
-|PyPI version| |License| |Wheel| |Downloads|
+|PyPI version| |License| |Supported Python| |Format| |Downloads|
 
 Fileconfig turns config file sections into instances of your class. Create a
 class referring to an **INI file** collecting the arguments for the different
@@ -202,7 +202,7 @@ Use the ``__init__`` method to process the other parameters to fit your needs.
     ...     def __init__(self, can_talk, quantity, characteristics=None, **kwargs):
     ...         self.can_talk = {'yes':True, 'no': False}[can_talk]
     ...         self.quantity = int(quantity)
-    ...         if characteristics is not None and characteristics.split():
+    ...         if characteristics is not None and characteristics.strip():
     ...             self.characteristics = [c.strip() for c in characteristics.split(',')]
     ...         super(Pet, self).__init__(**kwargs)
 
@@ -332,9 +332,12 @@ Fileconfig is distributed under the `MIT license`_.
 .. |License| image:: https://pypip.in/license/fileconfig/badge.svg
     :target: https://pypi.python.org/pypi/fileconfig
     :alt: License
-.. |Wheel| image:: https://pypip.in/wheel/fileconfig/badge.svg
+.. |Supported Python| image:: https://pypip.in/py_versions/fileconfig/badge.svg
     :target: https://pypi.python.org/pypi/fileconfig
-    :alt: Wheel Status
+    :alt: Supported Python Versions
+.. |Format| image:: https://pypip.in/format/fileconfig/badge.svg
+    :target: https://pypi.python.org/pypi/fileconfig
+    :alt: Format
 .. |Downloads| image:: https://pypip.in/d/fileconfig/badge.svg
     :target: https://pypi.python.org/pypi/fileconfig
     :alt: Downloads

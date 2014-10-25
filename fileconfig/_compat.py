@@ -28,12 +28,13 @@ if PY2:  # pragma: no cover
 
 
 else:  # pragma: no cover
-    integer_types = (int, )
+    integer_types = (int,)
 
     def iteritems(d):
         return iter(d.items())
 
-    try_encode = lambda chars, encoding='ascii': chars
+    def try_encode(chars, encoding='ascii'):
+        return chars
 
     from configparser import ConfigParser
 

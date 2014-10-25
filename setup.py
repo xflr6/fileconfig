@@ -4,7 +4,7 @@ from setuptools import setup, find_packages
 
 setup(
     name='fileconfig',
-    version='0.5.1',
+    version='0.5.2',
     author='Sebastian Bank',
     author_email='sebastian.bank@uni-leipzig.de',
     description='Config file sections as objects',
@@ -13,13 +13,13 @@ setup(
     url='http://github.com/xflr6/fileconfig',
     packages=find_packages(),
     extras_require={
-        'dev': ['wheel'],
         'test': ['nose', 'coverage', 'flake8', 'pep8-naming'],
+        'dev': ['wheel'],
     },
     platforms='any',
     long_description=open('README.rst').read(),
     classifiers=[
-        'Development Status :: 3 - Alpha',
+        'Development Status :: 4 - Beta',
         'Environment :: Console',
         'Intended Audience :: Developers',
         'License :: OSI Approved :: MIT License',

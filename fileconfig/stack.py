@@ -1,8 +1,8 @@
 # stacks.py - contain config, create and insert subclasses
 
-__all__ = ['ConfigStack']
-
 from ._compat import integer_types
+
+__all__ = ['ConfigStack']
 
 
 class ConfigStack(object):
