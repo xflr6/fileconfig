@@ -1,0 +1,4 @@
+include README.rst LICENSE CHANGES
+include run-tests.py
+recursive-include docs *.ini
+recursive-include tests *.py

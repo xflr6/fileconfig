@@ -9,6 +9,15 @@ instances to be created. Calling the class with the section name as parameter
 will return the instance with the parameters specified in the given section.
 
 
+Links
+-----
+
+- GitHub: http://github.com/xflr6/fileconfig
+- PyPI: http://pypi.python.org/pypi/fileconfig
+- Download: http://pypi.python.org/pypi/fileconfig#downloads
+- Issue Tracker: http://github.com/xflr6/fileconfig/issues
+
+
 Installation
 ------------
 
@@ -326,18 +335,18 @@ Fileconfig is distributed under the `MIT license`_.
 .. _MIT license: http://opensource.org/licenses/MIT
 
 
-.. |PyPI version| image:: https://pypip.in/v/fileconfig/badge.svg
+.. |PyPI version| image:: https://img.shields.io/pypi/v/fileconfig.svg
     :target: https://pypi.python.org/pypi/fileconfig
     :alt: Latest PyPI Version
-.. |License| image:: https://pypip.in/license/fileconfig/badge.svg
+.. |License| image:: https://img.shields.io/pypi/l/fileconfig.svg
     :target: https://pypi.python.org/pypi/fileconfig
     :alt: License
-.. |Supported Python| image:: https://pypip.in/py_versions/fileconfig/badge.svg
+.. |Supported Python| image:: https://img.shields.io/pypi/pyversions/fileconfig.svg
     :target: https://pypi.python.org/pypi/fileconfig
     :alt: Supported Python Versions
-.. |Format| image:: https://pypip.in/format/fileconfig/badge.svg
+.. |Format| image:: https://img.shields.io/pypi/format/fileconfig.svg
     :target: https://pypi.python.org/pypi/fileconfig
     :alt: Format
-.. |Downloads| image:: https://pypip.in/d/fileconfig/badge.svg
+.. |Downloads| image:: https://img.shields.io/pypi/dm/fileconfig.svg
     :target: https://pypi.python.org/pypi/fileconfig
     :alt: Downloads
