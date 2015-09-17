@@ -14,8 +14,8 @@ Links
 
 - GitHub: http://github.com/xflr6/fileconfig
 - PyPI: http://pypi.python.org/pypi/fileconfig
-- Download: http://pypi.python.org/pypi/fileconfig#downloads
 - Issue Tracker: http://github.com/xflr6/fileconfig/issues
+- Download: http://pypi.python.org/pypi/fileconfig#downloads
 
 
 Installation
@@ -317,11 +317,8 @@ Potential issues
 ----------------
 
 This package uses ``sys._getframe`` (which is almost the same as
-``inspect.currentframe``, see__ docs__). Under IronPython this might require
+``inspect.currentframe``, see_ docs_). Under IronPython this might require
 enabling the ``FullFrames`` option of the interpreter.
-
-.. __: http://docs.python.org/2/library/sys.html#sys._getframe
-.. __: http://docs.python.org/2/library/inspect.html#inspect.currentframe
 
 
 License
@@ -331,6 +328,9 @@ Fileconfig is distributed under the `MIT license`_.
 
 
 .. _pip: http://pip.readthedocs.org
+
+.. _see:  http://docs.python.org/2/library/sys.html#sys._getframe
+.. _docs: http://docs.python.org/2/library/inspect.html#inspect.currentframe
 
 .. _MIT license: http://opensource.org/licenses/MIT
 
