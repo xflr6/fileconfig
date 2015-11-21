@@ -1,16 +1,17 @@
 *.py[co]
 __pycache__/
-MANIFEST
-build/
-dist/
-*.egg-info/
-*.egg
-.eggs/
 
-.coverage
-cover/
-htmlcov/
-.cache/
-.tox/
+/MANIFEST
+/build/
+/dist/
+/*.egg-info/
+/*.egg
+/.eggs/
+
+/.coverage
+/cover/
+/htmlcov/
+/.cache/
+/.tox/
 
 Thumbs.db
