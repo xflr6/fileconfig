@@ -327,7 +327,7 @@ License
 Fileconfig is distributed under the `MIT license`_.
 
 
-.. _pip: http://pip.readthedocs.org
+.. _pip: http://pip.readthedocs.io
 
 .. _see:  http://docs.python.org/2/library/sys.html#sys._getframe
 .. _docs: http://docs.python.org/2/library/inspect.html#inspect.currentframe
