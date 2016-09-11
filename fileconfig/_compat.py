@@ -12,7 +12,7 @@ if PY2:  # pragma: no cover
         return d.iteritems()
 
     def try_encode(chars, encoding='ascii'):
-        """Return encoded chars, leave unchanged if encoding fails.
+        r"""Return encoded chars, leave unchanged if encoding fails.
 
         >>> try_encode(u'spam')
         'spam'
