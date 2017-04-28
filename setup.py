@@ -10,7 +10,7 @@ setup(
     description='Config file sections as objects',
     keywords='configuration ini file inheritance aliasing',
     license='MIT',
-    url='http://github.com/xflr6/fileconfig',
+    url='https://github.com/xflr6/fileconfig',
     packages=find_packages(),
     platforms='any',
     long_description=open('README.rst').read(),
@@ -25,5 +25,6 @@ setup(
         'Programming Language :: Python :: 3.3',
         'Programming Language :: Python :: 3.4',
         'Programming Language :: Python :: 3.5',
+        'Programming Language :: Python :: 3.6',
     ],
 )

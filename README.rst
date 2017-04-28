@@ -1,7 +1,7 @@
 Fileconfig
 ==========
 
-|PyPI version| |License| |Supported Python| |Format| |Downloads|
+|PyPI version| |License| |Supported Python| |Format|
 
 Fileconfig turns config file sections into instances of your class. Create a
 class referring to an **INI file** collecting the arguments for the different
@@ -12,10 +12,10 @@ will return the instance with the parameters specified in the given section.
 Links
 -----
 
-- GitHub: http://github.com/xflr6/fileconfig
-- PyPI: http://pypi.python.org/pypi/fileconfig
-- Issue Tracker: http://github.com/xflr6/fileconfig/issues
-- Download: http://pypi.python.org/pypi/fileconfig#downloads
+- GitHub: https://github.com/xflr6/fileconfig
+- PyPI: https://pypi.python.org/pypi/fileconfig
+- Issue Tracker: https://github.com/xflr6/fileconfig/issues
+- Download: https://pypi.python.org/pypi/fileconfig#downloads
 
 
 Installation
@@ -327,12 +327,12 @@ License
 Fileconfig is distributed under the `MIT license`_.
 
 
-.. _pip: http://pip.readthedocs.io
+.. _pip: https://pip.readthedocs.io
 
-.. _see:  http://docs.python.org/2/library/sys.html#sys._getframe
-.. _docs: http://docs.python.org/2/library/inspect.html#inspect.currentframe
+.. _see:  https://docs.python.org/2/library/sys.html#sys._getframe
+.. _docs: https://docs.python.org/2/library/inspect.html#inspect.currentframe
 
-.. _MIT license: http://opensource.org/licenses/MIT
+.. _MIT license: https://opensource.org/licenses/MIT
 
 
 .. |PyPI version| image:: https://img.shields.io/pypi/v/fileconfig.svg
