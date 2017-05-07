@@ -17,5 +17,5 @@ def test_iter(Settings):
 
 def test_repr(Settings):
     assert repr(Settings.__base__) == "<class 'fileconfig.bases.Stacked'>"
-    assert re.match(r"<class conftest\.Settings\['[^]]+?\\\\docs\\\\pet-shop\.ini'\]>",
+    assert re.match(r"<class conftest\.Settings\['[^]]+?(\\\\|/)docs(\\\\|/)pet-shop\.ini'\]>",
                     repr(Settings))
