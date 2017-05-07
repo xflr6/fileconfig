@@ -3,6 +3,8 @@ Fileconfig
 
 |PyPI version| |License| |Supported Python| |Format|
 
+|Travis| |Coveralls|
+
 Fileconfig turns config file sections into instances of your class. Create a
 class referring to an **INI file** collecting the arguments for the different
 instances to be created. Calling the class with the section name as parameter
@@ -350,3 +352,9 @@ Fileconfig is distributed under the `MIT license`_.
 .. |Downloads| image:: https://img.shields.io/pypi/dm/fileconfig.svg
     :target: https://pypi.python.org/pypi/fileconfig
     :alt: Downloads
+.. |Travis| image:: https://img.shields.io/travis/xflr6/fileconfig.svg
+   :target: https://travis-ci.org/xflr6/fileconfig
+   :alt: Travis
+.. |Coveralls| image:: https://img.shields.io/coveralls/xflr6/fileconfig.svg
+   :target: https://coveralls.io/github/xflr6/fileconfig
+   :alt: Coveralls
