@@ -1,11 +1,13 @@
-Fileconfig Changelog
-====================
+Changelog
+=========
 
 
-Version 0.5.3 (in development)
-------------------------------
+Version 0.5.3
+-------------
 
+Port tests from nose/unittest to pytest, add Travis CI and coveralls.
 
+Update meta data, tag Python 3.5/3.6 support.
 
 
 Version 0.5.2

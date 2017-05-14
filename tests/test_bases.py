@@ -15,7 +15,7 @@ def test_names(Cfg):
 
 
 def test_repr_settings(Settings):
-    assert re.match(r"<conftest\.Settings\['[^]]+?(\\\\|/)docs(\\\\|/)pet-shop\.ini'\] object at 0x\w+>",
+    assert re.match(r"<conftest\.Settings\['[^]]+?\\\\docs\\\\pet-shop\.ini'\] object at 0x\w+>",
                     repr(Settings.create()))
-    assert re.match(r"conftest\.Settings\['[^]]+?(\\\\|/)docs(\\\\|/)lumberjack.ini'\]\('parrot'\)",
+    assert re.match(r"conftest\.Settings\['[^]]+?\\\\docs\\\\lumberjack.ini'\]\('parrot'\)",
                     repr(Settings('parrot')))
