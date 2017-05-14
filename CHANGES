@@ -2,6 +2,12 @@ Changelog
 =========
 
 
+Version 0.5.4
+-------------
+
+Fix failing config filepath tests under Linux.
+
+
 Version 0.5.3
 -------------
 
