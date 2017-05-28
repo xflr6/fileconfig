@@ -57,7 +57,7 @@ class ConfigMeta(type):
                 enc = try_encode
         else:
             with io.open(self.filename, encoding=self._encoding) as fd:
-                parser.readfp(fd)
+                parser.read_file(fd)
 
         self._keys = []
         self._kwargs = {}
