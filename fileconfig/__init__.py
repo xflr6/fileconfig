@@ -7,7 +7,7 @@ from .bases import Config, Stacked
 __all__ = ['Config', 'Stacked']
 
 __title__ = 'fileconfig'
-__version__ = '0.5.5.dev0'
+__version__ = '0.5.5'
 __author__ = 'Sebastian Bank <sebastian.bank@uni-leipzig.de>'
 __license__ = 'MIT, see LICENSE'
-__copyright__ = 'Copyright (c) 2014-2015 Sebastian Bank'
+__copyright__ = 'Copyright (c) 2014-2015,2017 Sebastian Bank'

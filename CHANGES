@@ -2,10 +2,10 @@ Changelog
 =========
 
 
-Version 0.5.5 (in development)
-------------------------------
+Version 0.5.5
+-------------
 
-
+Fix ConfigParser.readfp() DeprecationWarning under Python3.
 
 
 Version 0.5.4
