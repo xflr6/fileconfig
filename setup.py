@@ -4,7 +4,7 @@ from setuptools import setup, find_packages
 
 setup(
     name='fileconfig',
-    version='0.5.5',
+    version='0.5.6.dev0',
     author='Sebastian Bank',
     author_email='sebastian.bank@uni-leipzig.de',
     description='Config file sections as objects',
