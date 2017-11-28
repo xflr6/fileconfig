@@ -8,6 +8,7 @@ cache: pip
 before_cache:
   - rm -f $HOME/.cache/pip/log/debug.log
 install:
-  - pip install .[test] coveralls
+  - pip install -e .[test]
+  - pip install coveralls
 script: pytest
 after_success: if [[ $TRAVIS_PYTHON_VERSION == 3.6* ]]; then coveralls; fi
