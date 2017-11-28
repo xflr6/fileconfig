@@ -13,6 +13,11 @@ setup(
     url='https://github.com/xflr6/fileconfig',
     packages=find_packages(),
     platforms='any',
+    python_requires='>=2.7,!=3.0.*,!=3.1.*,!=3.2.*,!=3.3.*',
+    extras_require={
+        'dev': ['flake8', 'pep8-naming', 'wheel', 'twine'],
+        'test': ['pytest>=3.3', 'pytest-cov'],
+    },
     long_description=open('README.rst').read(),
     classifiers=[
         'Development Status :: 4 - Beta',
