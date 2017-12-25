@@ -3,7 +3,7 @@ Fileconfig
 
 |PyPI version| |License| |Supported Python| |Format|
 
-|Travis| |Coveralls|
+|Travis| |Codecov|
 
 Fileconfig turns config file sections into instances of your class. Create a
 class referring to an **INI file** collecting the arguments for the different
@@ -353,8 +353,11 @@ Fileconfig is distributed under the `MIT license`_.
     :target: https://pypi.python.org/pypi/fileconfig
     :alt: Downloads
 .. |Travis| image:: https://img.shields.io/travis/xflr6/fileconfig.svg
-   :target: https://travis-ci.org/xflr6/fileconfig
-   :alt: Travis
+    :target: https://travis-ci.org/xflr6/fileconfig
+    :alt: Travis
+.. |Codecov| image:: https://codecov.io/gh/xflr6/fileconfig/branch/master/graph/badge.svg
+    :target: https://codecov.io/gh/xflr6/fileconfig
+    :alt: Codecov
 .. |Coveralls| image:: https://img.shields.io/coveralls/xflr6/fileconfig.svg
-   :target: https://coveralls.io/github/xflr6/fileconfig
-   :alt: Coveralls
+    :target: https://coveralls.io/github/xflr6/fileconfig
+    :alt: Coveralls

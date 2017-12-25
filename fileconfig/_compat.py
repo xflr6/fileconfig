@@ -5,7 +5,7 @@ import sys
 PY2 = sys.version_info[0] == 2
 
 
-if PY2:  # pragma: no cover
+if PY2:
     integer_types = (int, long)
 
     def iteritems(d):
@@ -27,7 +27,7 @@ if PY2:  # pragma: no cover
     from ConfigParser import SafeConfigParser as ConfigParser
 
 
-else:  # pragma: no cover
+else:
     integer_types = (int,)
 
     def iteritems(d):
