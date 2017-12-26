@@ -23,8 +23,6 @@ class ConfigMeta(type):
 
     _encoding = None
 
-    _enc = staticmethod(lambda s: s)
-
     @staticmethod
     def _split_aliases(aliases):
         return aliases.replace(',', ' ').split()
@@ -32,10 +30,6 @@ class ConfigMeta(type):
     def __init__(self, name, bases, dct):
         if self.filename is None:
             return
-
-        # work around nose doctest issue
-        if self.__module__ in ('__builtin__', 'builtins'):
-            self.__module__ = '__main__'
 
         if not os.path.isabs(self.filename):
             self.filename = os.path.join(tools.class_path(self), self.filename)
@@ -46,7 +40,7 @@ class ConfigMeta(type):
             open(self.filename)
 
         parser = self._parser()
-        enc = self._enc
+        enc = lambda s: s
 
         if PY2:
             if self._encoding is None:

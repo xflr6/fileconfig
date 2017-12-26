@@ -1,18 +1,37 @@
 # test_bases.py
 
+import os
 import re
 
-import os
+import pytest
+
+from fileconfig.bases import Config
 
 
 def test_init_uf8(M00se):
     assert M00se(u'M\xf8\xf8se').key == u'M\xf8\xf8se'
 
 
+def test_notfound():
+    with pytest.raises(IOError):
+        class NoCfg(Config):
+            filename = 'nonfilename'
+
+
 def test_iter(Settings):
     assert [(os.path.basename(s.filename), s.key) for s in Settings] == \
          [('lumberjack.ini', 'Bevis'), ('lumberjack.ini', 'parrot'),
           ('pet-shop.ini', 'slug'), ('pet-shop.ini', 'Polly')]
+
+
+def test_getitem(Settings):
+    assert Settings[Settings.filename] is Settings
+
+
+def test_call(Settings):
+    assert Settings(Settings('Bevis')) is Settings('Bevis')
+    with pytest.raises(KeyError):
+        Settings('nonkey')
 
 
 def test_repr(Settings):

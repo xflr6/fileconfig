@@ -5,24 +5,24 @@ import sys
 PY2 = sys.version_info[0] == 2
 
 
+def try_encode(chars, encoding='ascii'):
+    r"""Return encoded chars, leave unchanged if encoding fails.
+
+    >>> assert try_encode(u'spam') == b'spam'
+
+    >>> assert try_encode(u'm\xf8\xf8se') == u'm\xf8\xf8se'
+    """
+    try:
+        return chars.encode(encoding)
+    except UnicodeEncodeError:
+        return chars
+
+
 if PY2:
     integer_types = (int, long)
 
     def iteritems(d):
         return d.iteritems()
-
-    def try_encode(chars, encoding='ascii'):
-        r"""Return encoded chars, leave unchanged if encoding fails.
-
-        >>> try_encode(u'spam')
-        'spam'
-
-        >>> assert try_encode(u'm\xf8\xf8se') == u'm\xf8\xf8se'
-        """
-        try:
-            return chars.encode(encoding)
-        except UnicodeEncodeError:
-            return chars
 
     from ConfigParser import SafeConfigParser as ConfigParser
 
@@ -32,9 +32,6 @@ else:
 
     def iteritems(d):
         return iter(d.items())
-
-    def try_encode(chars, encoding='ascii'):
-        return chars
 
     from configparser import ConfigParser
 
