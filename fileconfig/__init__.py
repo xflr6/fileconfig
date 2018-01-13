@@ -9,5 +9,5 @@ __all__ = ['Config', 'Stacked']
 __title__ = 'fileconfig'
 __version__ = '0.5.7.dev0'
 __author__ = 'Sebastian Bank <sebastian.bank@uni-leipzig.de>'
-__license__ = 'MIT, see LICENSE'
+__license__ = 'MIT, see LICENSE.txt'
 __copyright__ = 'Copyright (c) 2014-2015,2017 Sebastian Bank'

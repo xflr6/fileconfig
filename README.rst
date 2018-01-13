@@ -358,6 +358,3 @@ Fileconfig is distributed under the `MIT license`_.
 .. |Codecov| image:: https://codecov.io/gh/xflr6/fileconfig/branch/master/graph/badge.svg
     :target: https://codecov.io/gh/xflr6/fileconfig
     :alt: Codecov
-.. |Coveralls| image:: https://img.shields.io/coveralls/xflr6/fileconfig.svg
-    :target: https://coveralls.io/github/xflr6/fileconfig
-    :alt: Coveralls
