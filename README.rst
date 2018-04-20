@@ -15,9 +15,9 @@ Links
 -----
 
 - GitHub: https://github.com/xflr6/fileconfig
-- PyPI: https://pypi.python.org/pypi/fileconfig
+- PyPI: https://pypi.org/project/fileconfig/
 - Issue Tracker: https://github.com/xflr6/fileconfig/issues
-- Download: https://pypi.python.org/pypi/fileconfig#downloads
+- Download: https://pypi.org/project/fileconfig/#files
 
 
 Installation
@@ -338,20 +338,17 @@ Fileconfig is distributed under the `MIT license`_.
 
 
 .. |PyPI version| image:: https://img.shields.io/pypi/v/fileconfig.svg
-    :target: https://pypi.python.org/pypi/fileconfig
+    :target: https://pypi.org/project/fileconfig/
     :alt: Latest PyPI Version
 .. |License| image:: https://img.shields.io/pypi/l/fileconfig.svg
-    :target: https://pypi.python.org/pypi/fileconfig
+    :target: https://pypi.org/project/fileconfig/
     :alt: License
 .. |Supported Python| image:: https://img.shields.io/pypi/pyversions/fileconfig.svg
-    :target: https://pypi.python.org/pypi/fileconfig
+    :target: https://pypi.org/project/fileconfig/
     :alt: Supported Python Versions
 .. |Format| image:: https://img.shields.io/pypi/format/fileconfig.svg
-    :target: https://pypi.python.org/pypi/fileconfig
+    :target: https://pypi.org/project/fileconfig/
     :alt: Format
-.. |Downloads| image:: https://img.shields.io/pypi/dm/fileconfig.svg
-    :target: https://pypi.python.org/pypi/fileconfig
-    :alt: Downloads
 .. |Travis| image:: https://img.shields.io/travis/xflr6/fileconfig.svg
     :target: https://travis-ci.org/xflr6/fileconfig
     :alt: Travis
