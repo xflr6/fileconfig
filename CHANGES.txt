@@ -5,7 +5,9 @@ Changelog
 Version 0.5.7 (in development)
 ------------------------------
 
+Add python_requires, update package scaffolding.
 
+Increase test coverage.
 
 
 Version 0.5.6
