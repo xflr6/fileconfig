@@ -2,8 +2,8 @@ Changelog
 =========
 
 
-Version 0.5.7 (in development)
-------------------------------
+Version 0.5.7
+-------------
 
 Add python_requires, update package scaffolding.
 
