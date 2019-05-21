@@ -27,7 +27,7 @@ class ConfigMeta(type):
     def _split_aliases(aliases):
         return aliases.replace(',', ' ').split()
 
-    def __init__(self, name, bases, dct):
+    def __init__(self, name, bases, dct):  # noqa: N804
         if self.filename is None:
             return
 
@@ -40,7 +40,7 @@ class ConfigMeta(type):
             open(self.filename)
 
         parser = self._parser()
-        enc = lambda s: s
+        enc = lambda s: s  # noqa: E731
 
         if PY2:
             if self._encoding is None:
@@ -79,7 +79,7 @@ class ConfigMeta(type):
 
         self._cache = {}
 
-    def __call__(self, key=DEFAULT):
+    def __call__(self, key=DEFAULT):  # noqa: N804
         if isinstance(key, self):
             return key
 
@@ -91,7 +91,7 @@ class ConfigMeta(type):
             inst = self.create(**kwargs)
         return inst
 
-    def create(self, key=None, **kwargs):
+    def create(self, key=None, **kwargs):  # noqa: N804
         inst = super(ConfigMeta, self).__call__(key=key, **kwargs)
 
         if key is not None:
@@ -99,11 +99,11 @@ class ConfigMeta(type):
 
         return inst
 
-    def __iter__(self):
+    def __iter__(self):  # noqa: N804
         for key in self._keys:
             yield self(key)
 
-    def pprint_all(self):
+    def pprint_all(self):  # noqa: N804
         for c in self:
             print('%s\n' % c)
 
