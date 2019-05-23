@@ -71,8 +71,8 @@ class ConfigMeta(type):
 
             if 'inherits' in kwargs:
                 kwargs = dict(((k, v)
-                    for k, v in parser.items(kwargs['inherits'])
-                    if k != 'aliases'), **kwargs)
+                               for k, v in parser.items(kwargs['inherits'])
+                               if k != 'aliases'), **kwargs)
 
             self._keys.append(key)
             self._kwargs[key] = kwargs
@@ -151,4 +151,5 @@ class StackedMeta(ConfigMeta):
     def __repr__(self):
         if self.stack is None:
             return super(StackedMeta, self).__repr__()
-        return '<class %s.%s[%r]>' % (self.__module__, self.__name__, self.filename)
+        return '<class %s.%s[%r]>' % (self.__module__, self.__name__,
+                                      self.filename)

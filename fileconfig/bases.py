@@ -14,14 +14,18 @@ class Config(with_metaclass(meta.ConfigMeta, object)):
         self.__dict__.update(kwargs)
 
     def __str__(self):
-        items = ('  %r: %r' % (k, v) for k, v in sorted(iteritems(self.__dict__)))
+        items = ('  %r: %r' % (k, v)
+                 for k, v in sorted(iteritems(self.__dict__)))
         return '{\n%s\n}' % ',\n'.join(items)
 
     def __repr__(self):
         if getattr(self, 'key', None) is None:
             return '<%s.%s object at %#x>' % (self.__module__,
-                self.__class__.__name__, id(self))
-        return '%s.%s(%r)' % (self.__module__, self.__class__.__name__, self.key)
+                                              self.__class__.__name__,
+                                              id(self))
+        return '%s.%s(%r)' % (self.__module__,
+                              self.__class__.__name__,
+                              self.key)
 
     @property
     def names(self):
@@ -41,6 +45,10 @@ class Stacked(with_metaclass(meta.StackedMeta, Config)):
     def __repr__(self):
         if getattr(self, 'key', None) is None:
             return '<%s.%s[%r] object at %#x>' % (self.__module__,
-                self.__class__.__name__, self.__class__.filename, id(self))
-        return '%s.%s[%r](%r)' % (self.__module__, self.__class__.__name__,
-            self.__class__.filename, self.key)
+                                                  self.__class__.__name__,
+                                                  self.__class__.filename,
+                                                  id(self))
+        return '%s.%s[%r](%r)' % (self.__module__,
+                                  self.__class__.__name__,
+                                  self.__class__.filename,
+                                  self.key)

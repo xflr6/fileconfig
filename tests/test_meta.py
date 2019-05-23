@@ -20,8 +20,8 @@ def test_notfound():
 
 def test_iter(Settings):  # noqa: N803
     assert [(os.path.basename(s.filename), s.key) for s in Settings] == \
-         [('lumberjack.ini', 'Bevis'), ('lumberjack.ini', 'parrot'),
-          ('pet-shop.ini', 'slug'), ('pet-shop.ini', 'Polly')]
+           [('lumberjack.ini', 'Bevis'), ('lumberjack.ini', 'parrot'),
+            ('pet-shop.ini', 'slug'), ('pet-shop.ini', 'Polly')]
 
 
 def test_getitem(Settings):  # noqa: N803
@@ -36,5 +36,6 @@ def test_call(Settings):  # noqa: N803
 
 def test_repr(Settings):  # noqa: N803
     assert repr(Settings.__base__) == "<class 'fileconfig.bases.Stacked'>"
-    assert re.match(r"<class conftest\.Settings\['[^]]+?(\\\\|/)docs(\\\\|/)pet-shop\.ini'\]>",
+    assert re.match(r"<class conftest\.Settings\["
+                    r"'[^]]+?(\\\\|/)docs(\\\\|/)pet-shop\.ini'\]>",
                     repr(Settings))

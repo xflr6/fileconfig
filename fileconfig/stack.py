@@ -16,7 +16,9 @@ class ConfigStack(object):
     def insert(self, index, filename):
         """Insert a new subclass with filename at index, mockup __module__."""
         base = self._base
-        dct = {'__module__': base.__module__, 'filename': filename, '_stack': self}
+        dct = {'__module__': base.__module__,
+               'filename': filename,
+               '_stack': self}
         cls = type(base.__name__, (base,), dct)
 
         self._map[cls.filename] = cls
