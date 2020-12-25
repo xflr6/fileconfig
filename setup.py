@@ -14,6 +14,8 @@ setup(
     url='https://github.com/xflr6/fileconfig',
     project_urls={
         'Issue Tracker': 'https://github.com/xflr6/fileconfig/issues',
+        'CI': 'https://travis-ci.org/xflr6/fileconfig',
+        'Coverage': 'https://codecov.io/gh/xflr6/fileconfig',
     },
     packages=find_packages(),
     platforms='any',
