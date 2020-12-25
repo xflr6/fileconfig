@@ -1,11 +1,12 @@
 # meta.py - parse config, collect arguments, create instances
 
-import os
 import io
+import os
 
 from ._compat import PY2, try_encode, ConfigParser
 
-from . import stack, tools
+from . import stack
+from . import tools
 
 __all__ = ['ConfigMeta', 'StackedMeta']
 

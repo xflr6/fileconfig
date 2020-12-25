@@ -1,8 +1,8 @@
 # tools.py - runtime path inspection
 
-import sys
-import os
 import inspect
+import os
+import sys
 
 __all__ = ['class_path', 'caller_path']
 
