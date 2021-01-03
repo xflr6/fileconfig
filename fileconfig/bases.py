@@ -1,31 +1,26 @@
 # bases.py - to be subclassed by client code
 
-from ._compat import iteritems, with_metaclass
-
 from . import meta
 
 __all__ = ['Config', 'Stacked']
 
 
-class Config(with_metaclass(meta.ConfigMeta, object)):
+class Config(metaclass=meta.ConfigMeta):
     """Return section by name from filename as instance."""
 
     def __init__(self, **kwargs):
         self.__dict__.update(kwargs)
 
     def __str__(self):
-        items = ('  %r: %r' % (k, v)
-                 for k, v in sorted(iteritems(self.__dict__)))
-        return '{\n%s\n}' % ',\n'.join(items)
+        items = sorted(self.__dict__.items())
+        items = ',\n'.join(f'  {k!r}: {v!r}' for k, v in items)
+        return '{\n%s\n}' % items
 
     def __repr__(self):
         if getattr(self, 'key', None) is None:
-            return '<%s.%s object at %#x>' % (self.__module__,
-                                              self.__class__.__name__,
-                                              id(self))
-        return '%s.%s(%r)' % (self.__module__,
-                              self.__class__.__name__,
-                              self.key)
+            return (f'<{self.__module__}.{self.__class__.__name__} object'
+                    f' at {id(self):#x}>')
+        return f'{self.__module__}.{self.__class__.__name__}({self.key!r})'
 
     @property
     def names(self):
@@ -39,16 +34,12 @@ class Config(with_metaclass(meta.ConfigMeta, object)):
         return result
 
 
-class Stacked(with_metaclass(meta.StackedMeta, Config)):
+class Stacked(Config, metaclass=meta.StackedMeta):
     """Return section by name from first matching file as instance."""
 
     def __repr__(self):
         if getattr(self, 'key', None) is None:
-            return '<%s.%s[%r] object at %#x>' % (self.__module__,
-                                                  self.__class__.__name__,
-                                                  self.__class__.filename,
-                                                  id(self))
-        return '%s.%s[%r](%r)' % (self.__module__,
-                                  self.__class__.__name__,
-                                  self.__class__.filename,
-                                  self.key)
+            return (f'<{self.__module__}.{self.__class__.__name__}'
+                    f'[{self.__class__.filename!r}] object at {id(self):#x}>')
+        return (f'{self.__module__}.{self.__class__.__name__}'
+                f'[{self.__class__.filename!r}]({self.key!r})')

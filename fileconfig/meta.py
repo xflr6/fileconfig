@@ -1,9 +1,7 @@
 # meta.py - parse config, collect arguments, create instances
 
-import io
+import configparser
 import os
-
-from ._compat import PY2, try_encode, ConfigParser
 
 from . import stack
 from . import tools
@@ -20,7 +18,7 @@ class ConfigMeta(type):
 
     _pass_notfound = False
 
-    _parser = ConfigParser
+    _parser = configparser.ConfigParser
 
     _encoding = None
 
@@ -41,26 +39,16 @@ class ConfigMeta(type):
             open(self.filename)
 
         parser = self._parser()
-        enc = lambda s: s  # noqa: E731
 
-        if PY2:
-            if self._encoding is None:
-                parser.read(self.filename)
-            else:
-                with io.open(self.filename, encoding=self._encoding) as fd:
-                    parser.readfp(fd)
-                enc = try_encode
-        else:
-            with io.open(self.filename, encoding=self._encoding) as fd:
-                parser.read_file(fd)
+        with open(self.filename, encoding=self._encoding) as fd:
+            parser.read_file(fd)
 
         self._keys = []
         self._kwargs = {}
         self._aliases = {}
 
         for key in parser.sections():
-            key = enc(key)
-            items = ((enc(k), enc(v)) for k, v in parser.items(key))
+            items = ((k, v) for k, v in parser.items(key))
             kwargs = dict(items, key=key)
 
             if 'aliases' in kwargs:
@@ -93,7 +81,7 @@ class ConfigMeta(type):
         return inst
 
     def create(self, key=None, **kwargs):  # noqa: N804
-        inst = super(ConfigMeta, self).__call__(key=key, **kwargs)
+        inst = super().__call__(key=key, **kwargs)
 
         if key is not None:
             self._cache[key] = inst
@@ -106,7 +94,7 @@ class ConfigMeta(type):
 
     def pprint_all(self):  # noqa: N804
         for c in self:
-            print('%s\n' % c)
+            print(f'{c}\n')
 
 
 class StackedMeta(ConfigMeta):
@@ -115,7 +103,7 @@ class StackedMeta(ConfigMeta):
     stack = None
 
     def __init__(self, name, bases, dct):
-        super(StackedMeta, self).__init__(name, bases, dct)
+        super().__init__(name, bases, dct)
 
         if self.filename is not None:
             self.stack = stack.ConfigStack(self)
@@ -151,6 +139,5 @@ class StackedMeta(ConfigMeta):
 
     def __repr__(self):
         if self.stack is None:
-            return super(StackedMeta, self).__repr__()
-        return '<class %s.%s[%r]>' % (self.__module__, self.__name__,
-                                      self.filename)
+            return super().__repr__()
+        return f'<class {self.__module__}.{self.__name__}[{self.filename!r}]>'

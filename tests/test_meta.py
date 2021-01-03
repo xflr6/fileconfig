@@ -9,7 +9,7 @@ from fileconfig.bases import Config
 
 
 def test_init_uf8(M00se):  # noqa: N803
-    assert M00se(u'M\xf8\xf8se').key == u'M\xf8\xf8se'
+    assert M00se('M\xf8\xf8se').key == 'M\xf8\xf8se'
 
 
 def test_notfound():

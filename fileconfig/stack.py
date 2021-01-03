@@ -1,7 +1,5 @@
 # stacks.py - contain config, create and insert subclasses
 
-from ._compat import integer_types
-
 __all__ = ['ConfigStack']
 
 
@@ -25,7 +23,7 @@ class ConfigStack(object):
         self._classes.insert(index, cls)
 
     def __getitem__(self, filename):
-        if isinstance(filename, integer_types):
+        if isinstance(filename, int):
             return self._classes[filename]
 
         return self._map[filename]
@@ -34,4 +32,4 @@ class ConfigStack(object):
         return iter(self._classes)
 
     def __repr__(self):
-        return '<%s %r>' % (self.__class__.__name__, self._classes)
+        return f'<{self.__class__.__name__} {self._classes!r}>'
