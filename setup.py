@@ -5,7 +5,7 @@ from setuptools import setup, find_packages
 
 setup(
     name='fileconfig',
-    version='0.5.11.dev0',
+    version='0.6.dev0',
     author='Sebastian Bank',
     author_email='sebastian.bank@uni-leipzig.de',
     description='Config file sections as objects',
@@ -19,7 +19,7 @@ setup(
     },
     packages=find_packages(),
     platforms='any',
-    python_requires='>=2.7,!=3.0.*,!=3.1.*,!=3.2.*,!=3.3.*,!=3.4.*,!=3.5.*',
+    python_requires='>=3.6',
     extras_require={
         'dev': ['tox>3', 'flake8', 'pep8-naming', 'wheel', 'twine'],
         'test': ['pytest>=4', 'pytest-cov'],
@@ -30,8 +30,6 @@ setup(
         'Intended Audience :: Developers',
         'License :: OSI Approved :: MIT License',
         'Operating System :: OS Independent',
-        'Programming Language :: Python :: 2',
-        'Programming Language :: Python :: 2.7',
         'Programming Language :: Python :: 3',
         'Programming Language :: Python :: 3.6',
         'Programming Language :: Python :: 3.7',
