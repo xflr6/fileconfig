@@ -215,7 +215,7 @@ Use the ``__init__`` method to process the other parameters to fit your needs.
     ...         self.quantity = int(quantity)
     ...         if characteristics is not None and characteristics.strip():
     ...             self.characteristics = [c.strip() for c in characteristics.split(',')]
-    ...         super(Pet, self).__init__(**kwargs)
+    ...         super().__init__(**kwargs)
 
     >>> print(Pet('Polly'))
     {
