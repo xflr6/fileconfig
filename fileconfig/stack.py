@@ -1,4 +1,4 @@
-# stacks.py - contain config, create and insert subclasses
+"""Contain config, create and insert subclasses."""
 
 __all__ = ['ConfigStack']
 

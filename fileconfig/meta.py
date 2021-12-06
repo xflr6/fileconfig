@@ -1,4 +1,4 @@
-# meta.py - parse config, collect arguments, create instances
+"""Parse config, collect arguments, create instances."""
 
 import configparser
 import os

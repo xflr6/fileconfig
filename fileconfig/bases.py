@@ -1,4 +1,4 @@
-# bases.py - to be subclassed by client code
+"""Bases to be subclassed by client code."""
 
 from . import meta
 

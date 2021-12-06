@@ -1,6 +1,4 @@
-# test_bases.py
-
-import os
+import pathlib
 import re
 
 import pytest
@@ -19,7 +17,7 @@ def test_notfound():
 
 
 def test_iter(Settings):  # noqa: N803
-    assert [(os.path.basename(s.filename), s.key) for s in Settings] == \
+    assert [(pathlib.Path(s.filename).name, s.key) for s in Settings] == \
            [('lumberjack.ini', 'Bevis'), ('lumberjack.ini', 'parrot'),
             ('pet-shop.ini', 'slug'), ('pet-shop.ini', 'Polly')]
 

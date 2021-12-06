@@ -1,5 +1,3 @@
-# conftest.py
-
 import pytest
 
 from fileconfig.bases import Config, Stacked

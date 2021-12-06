@@ -1,11 +1,9 @@
-# test_stack.py
-
-import os
+import pathlib
 
 
 def test_getitem(Settings):  # noqa: N803
     top = Settings.stack[0]
-    assert os.path.basename(top.filename) == 'lumberjack.ini'
+    assert pathlib.Path(top.filename).name == 'lumberjack.ini'
     assert Settings.stack[top.filename] is top
 
 

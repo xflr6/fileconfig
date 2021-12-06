@@ -1,4 +1,4 @@
-# tools.py - runtime path inspection
+"""Runtime path inspection."""
 
 import inspect
 import os
