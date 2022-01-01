@@ -5,7 +5,7 @@ Changelog
 Version 0.6.1 (in development)
 ------------------------------
 
-
+Drop Python 3.6 support.
 
 
 Version 0.6
@@ -13,7 +13,7 @@ Version 0.6
 
 Drop Python 2 support.
 
-Drpo Python 3.5 support and tag Python 3.9 and 3.10 support.
+Drop Python 3.5 support and tag Python 3.9 and 3.10 support.
 
 
 Version 0.5.10
