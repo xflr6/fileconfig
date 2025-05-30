@@ -1,7 +1,7 @@
 Fileconfig
 ==========
 
-|PyPI version| |License| |Supported Python| |Wheel|
+|PyPI version| |License| |Supported Python| |Downloads|
 
 |Build| |Codecov|
 
@@ -346,9 +346,9 @@ Fileconfig is distributed under the `MIT license`_.
 .. |Supported Python| image:: https://img.shields.io/pypi/pyversions/fileconfig.svg
     :target: https://pypi.org/project/fileconfig/
     :alt: Supported Python Versions
-.. |Wheel| image:: https://img.shields.io/pypi/wheel/fileconfig.svg
-    :target: https://pypi.org/project/fileconfig/#files
-    :alt: Wheel format
+.. |Downloads| image:: https://img.shields.io/pypi/dm/csv23.svg
+    :target: https://pypistats.org/packages/csv23
+    :alt: Monthly downloads
 
 .. |Build| image:: https://github.com/xflr6/fileconfig/actions/workflows/build.yaml/badge.svg?branch=master
     :target: https://github.com/xflr6/fileconfig/actions/workflows/build.yaml?query=branch%3Amaster
