@@ -22,6 +22,8 @@ classifiers = [
 
 [project.urls]
 Homepage = "https://github.com/xflr6/fileconfig"
+Documentation = "https://github.com/xflr6/fileconfig/blob/master/README.rst"
+Changelog = "https://github.com/xflr6/fileconfig/blob/master/CHANGES.rst"
 "Issue Tracker" = "https://github.com/xflr6/fileconfig/issues"
 CI = "https://github.com/xflr6/fileconfig/actions"
 Coverage = "https://codecov.io/gh/xflr6/fileconfig"
