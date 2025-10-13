@@ -7,7 +7,7 @@ import sys
 __all__ = ['class_path', 'caller_path']
 
 
-def class_path(cls):
+def class_path(cls: type) -> str:
     """Return the path to the source file of the given class."""
     if cls.__module__ == '__main__':
         path = None
@@ -20,7 +20,7 @@ def class_path(cls):
     return os.path.realpath(path)
 
 
-def caller_path(steps=1):
+def caller_path(steps: int = 1):
     """Return the path to the source file of the current frames' caller."""
     frame = sys._getframe(steps + 1)
 

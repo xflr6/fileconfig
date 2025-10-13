@@ -23,10 +23,10 @@ class ConfigMeta(type):
     _encoding = None
 
     @staticmethod
-    def _split_aliases(aliases):
+    def _split_aliases(aliases: str) -> list[str]:
         return aliases.replace(',', ' ').split()
 
-    def __init__(self, name, bases, dct):  # noqa: N804
+    def __init__(self, name: str, bases, dct) -> None:  # noqa: N804
         if self.filename is None:
             return
 
@@ -92,7 +92,7 @@ class ConfigMeta(type):
         for key in self._keys:
             yield self(key)
 
-    def pprint_all(self):  # noqa: N804
+    def pprint_all(self) -> None:  # noqa: N804
         for c in self:
             print(f'{c}\n')
 
@@ -100,19 +100,19 @@ class ConfigMeta(type):
 class StackedMeta(ConfigMeta):
     """Can register multiple filenames and returns the first match."""
 
-    stack = None
+    stack: stack.ConfigStack | None = None
 
-    def __init__(self, name, bases, dct):
+    def __init__(self, name: str, bases, dct) -> None:
         super().__init__(name, bases, dct)
 
         if self.filename is not None:
             self.stack = stack.ConfigStack(self)
 
-    def add(self, filename, position=0, caller_steps=1):
+    def add(self, filename: str, position: int = 0, caller_steps: int = 1) -> None:
         if not os.path.isabs(filename):
             filename = os.path.join(tools.caller_path(caller_steps), filename)
 
-        self.stack.insert(position, filename)
+        self.stack.insert(position, filename)  # type: ignore[union-attr]
 
     def __getitem__(self, filename):
         return self.stack[filename]
@@ -137,7 +137,7 @@ class StackedMeta(ConfigMeta):
                     yield inst
                     seen.add(inst.key)
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         if self.stack is None:
             return super().__repr__()
         return f'<class {self.__module__}.{self.__name__}[{self.filename!r}]>'

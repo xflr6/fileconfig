@@ -8,22 +8,24 @@ __all__ = ['Config', 'Stacked']
 class Config(metaclass=meta.ConfigMeta):
     """Return section by name from filename as instance."""
 
-    def __init__(self, **kwargs):
+    key: str
+
+    def __init__(self, **kwargs) -> None:
         self.__dict__.update(kwargs)
 
-    def __str__(self):
+    def __str__(self) -> str:
         items = sorted(self.__dict__.items())
-        items = ',\n'.join(f'  {k!r}: {v!r}' for k, v in items)
-        return '{\n%s\n}' % items
+        items_repr = ',\n'.join(f'  {k!r}: {v!r}' for k, v in items)
+        return '{\n%s\n}' % items_repr
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         if getattr(self, 'key', None) is None:
             return (f'<{self.__module__}.{self.__class__.__name__} object'
                     f' at {id(self):#x}>')
         return f'{self.__module__}.{self.__class__.__name__}({self.key!r})'
 
     @property
-    def names(self):
+    def names(self) -> list[str]:
         """Names, by which the instance can be retrieved."""
         if getattr(self, 'key', None) is None:
             result = []
@@ -37,7 +39,7 @@ class Config(metaclass=meta.ConfigMeta):
 class Stacked(Config, metaclass=meta.StackedMeta):
     """Return section by name from first matching file as instance."""
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         if getattr(self, 'key', None) is None:
             return (f'<{self.__module__}.{self.__class__.__name__}'
                     f'[{self.__class__.filename!r}] object at {id(self):#x}>')

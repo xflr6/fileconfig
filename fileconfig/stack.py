@@ -6,12 +6,12 @@ __all__ = ['ConfigStack']
 class ConfigStack(object):
     """Ordered and filename-indexed collection of Config classes."""
 
-    def __init__(self, config):
+    def __init__(self, config) -> None:
         self._base = config
         self._map = {config.filename: config}
         self._classes = [config]
 
-    def insert(self, index, filename):
+    def insert(self, index: int, filename: str) -> None:
         """Insert a new subclass with filename at index, mockup __module__."""
         base = self._base
         dct = {'__module__': base.__module__,
@@ -19,10 +19,10 @@ class ConfigStack(object):
                '_stack': self}
         cls = type(base.__name__, (base,), dct)
 
-        self._map[cls.filename] = cls
+        self._map[cls.filename] = cls  # type: ignore[attr-defined]
         self._classes.insert(index, cls)
 
-    def __getitem__(self, filename):
+    def __getitem__(self, filename: str | int):
         if isinstance(filename, int):
             return self._classes[filename]
 
@@ -31,5 +31,5 @@ class ConfigStack(object):
     def __iter__(self):
         return iter(self._classes)
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         return f'<{self.__class__.__name__} {self._classes!r}>'
