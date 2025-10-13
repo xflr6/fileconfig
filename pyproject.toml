@@ -42,6 +42,13 @@ version = { attr = "fileconfig.__version__" }
 
 [tool.mypy]
 packages = ["fileconfig"]
+# https://mypy.readthedocs.io/en/stable/existing_code.html#introduce-stricter-options
+warn_unused_configs = true
+warn_redundant_casts = true
+warn_unused_ignores = true
+strict_equality = true
+#check_untyped_defs = true
+disallow_subclassing_any = true
 
 [tool.flake8]
 exclude = ["docs", ".tox"]
