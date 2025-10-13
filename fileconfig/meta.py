@@ -3,7 +3,7 @@
 import configparser
 import os
 
-from . import stack
+from . import stack as _stack
 from . import tools
 
 __all__ = ['ConfigMeta', 'StackedMeta']
@@ -100,13 +100,13 @@ class ConfigMeta(type):
 class StackedMeta(ConfigMeta):
     """Can register multiple filenames and returns the first match."""
 
-    stack: stack.ConfigStack | None = None
+    stack: _stack.ConfigStack | None = None
 
     def __init__(self, name: str, bases, dct) -> None:
         super().__init__(name, bases, dct)
 
         if self.filename is not None:
-            self.stack = stack.ConfigStack(self)
+            self.stack = _stack.ConfigStack(self)
 
     def add(self, filename: str, position: int = 0, caller_steps: int = 1) -> None:
         if not os.path.isabs(filename):
