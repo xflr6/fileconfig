@@ -72,8 +72,7 @@ class ConfigMeta(type):
         if isinstance(key, self):
             return key
 
-        key = self._aliases.get(key, key)
-        if key in self._cache:
+        if (key := self._aliases.get(key, key)) in self._cache:
             inst = self._cache[key]
         else:
             kwargs = self._kwargs.pop(key)

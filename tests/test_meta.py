@@ -3,7 +3,7 @@ import re
 
 import pytest
 
-from fileconfig.bases import Config
+from fileconfig import bases
 
 
 def test_init_uf8(M00se):  # noqa: N803
@@ -12,7 +12,7 @@ def test_init_uf8(M00se):  # noqa: N803
 
 def test_notfound():
     with pytest.raises(IOError):
-        class NoCfg(Config):
+        class NoCfg(bases.Config):
             filename = 'nonfilename'
 
 

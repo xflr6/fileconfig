@@ -1,5 +1,3 @@
-# fileconfig - create class instances from config file section
-
 """Parse config file and return class instances for each section."""
 
 from .bases import Config, Stacked

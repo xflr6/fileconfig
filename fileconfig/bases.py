@@ -27,10 +27,7 @@ class Config(metaclass=meta.ConfigMeta):
     @property
     def names(self) -> list[str]:
         """Names, by which the instance can be retrieved."""
-        if getattr(self, 'key', None) is None:
-            result = []
-        else:
-            result = [self.key]
+        result = [self.key] if getattr(self, 'key', None) is not None else []
         if hasattr(self, 'aliases'):
             result.extend(self.aliases)
         return result
