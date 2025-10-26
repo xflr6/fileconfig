@@ -26,11 +26,7 @@ Documentation = "https://github.com/xflr6/fileconfig/blob/master/README.rst"
 Changelog = "https://github.com/xflr6/fileconfig/blob/master/CHANGES.rst"
 "Issue Tracker" = "https://github.com/xflr6/fileconfig/issues"
 CI = "https://github.com/xflr6/fileconfig/actions"
-Coverage = "https://codecov.io/gh/xflr6/fileconfig"
-
-[project.optional-dependencies]
-dev = ["build", "wheel", "twine", "mypy", "flake8", "Flake8-pyproject", "pep8-naming", "tox>=3"]
-test = ["pytest>=7", "pytest-cov"]
+Coverage = "https://app.codecov.io/gh/xflr6/fileconfig"
 
 [build-system]
 requires = ["setuptools"]
@@ -41,6 +37,30 @@ platforms = ["any"]
 
 [tool.setuptools.dynamic]
 version = { attr = "fileconfig.__version__" }
+
+[dependency-groups]
+dev = [  # $ pip install . --group dev
+  "build",
+  "tox",
+  "twine",
+  "wheel",
+  { include-group = "lint" },
+  { include-group = "test" },
+  { include-group = "typing" },
+]
+lint = [
+  "flake8",
+  "Flake8-pyproject",
+  "pep8-naming",
+]
+test = [
+  "coverage",
+  "pytest>=7",
+  "pytest-cov",
+]
+typing = [
+  "mypy",
+]
 
 [tool.mypy]
 packages = ["fileconfig"]
@@ -75,12 +95,10 @@ source = ["fileconfig"]
 branch = false
 
 [tool.tox]
-legacy_tox_ini = """
-  [tox]
-  envlist = py{314,313,312,311,310}
-  skip_missing_interpreters = true
+requires = ["tox>=4.22"]
+env_list = ["3.14", "3.13", "3.12", "3.11", "3.10"]
+skip_missing_interpreters = true
 
-  [testenv]
-  extras = test
-  commands = python -X dev run-tests.py {posargs}
-"""
+[tool.tox.env_run_base]
+dependency_groups = ["test"]
+commands = [["python", "-X", "dev", "run-tests.py", { replace = "posargs", extend = true }]]
