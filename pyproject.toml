@@ -39,7 +39,7 @@ platforms = ["any"]
 version = { attr = "fileconfig.__version__" }
 
 [dependency-groups]
-dev = [  # $ pip install . --group dev
+dev = [  # $ pip install -e . --group dev
   "build",
   "tox",
   "twine",
