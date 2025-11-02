@@ -40,27 +40,14 @@ version = { attr = "fileconfig.__version__" }
 
 [dependency-groups]
 dev = [  # $ pip install -e . --group dev
-  "build",
-  "tox",
-  "twine",
-  "wheel",
+  "build", "tox", "twine", "wheel",
   { include-group = "lint" },
   { include-group = "test" },
   { include-group = "typing" },
 ]
-lint = [
-  "flake8",
-  "Flake8-pyproject",
-  "pep8-naming",
-]
-test = [
-  "coverage",
-  "pytest>=7",
-  "pytest-cov",
-]
-typing = [
-  "mypy",
-]
+lint = ["flake8", "Flake8-pyproject", "pep8-naming"]
+test = ["coverage", "pytest>=8", "pytest-cov"]
+typing = ["mypy"]
 
 [tool.mypy]
 packages = ["fileconfig"]
@@ -73,12 +60,12 @@ strict_equality = true
 disallow_subclassing_any = true
 
 [tool.flake8]
-exclude = ["docs", ".tox"]
-ignore = ["E126", "E128"]
+exclude = [".tox", "build", "docs"]
+ignore = ["E126", "E128", "W503"]
 max-line-length = 100
 
 [tool.pytest.ini_options]
-minversion = "6"
+minversion = "8"
 testpaths = ["README.rst", "fileconfig", "tests"]
 addopts = [
   "--doctest-modules", 
